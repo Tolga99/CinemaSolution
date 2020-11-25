@@ -16,7 +16,7 @@ namespace ConsoleFilm
         {
             CinemaContext cinemaContext;
             DbContextOptionsBuilder<CinemaContext> optionsBuilder = new DbContextOptionsBuilder<CinemaContext>();
-            optionsBuilder.UseSqlite("Data Source = C:\\Users\\t_olg\\Desktop\\Ecole\\Bloc 2-3 (2020-2021)\\Q1\\DotNet\\NETOvali\\Cinema.db ;cache=shared");
+            optionsBuilder.UseSqlite("Data Source = C:\\Users\\t_olg\\Desktop\\Ecole\\Bloc 2-3 (2020-2021)\\Q1\\DotNet\\NETOvali\\Cinema.db ;Cache=Shared");
             cinemaContext = new CinemaContext(optionsBuilder.Options);
             cinemaContext.Database.EnsureDeleted();
             cinemaContext.Database.EnsureCreated();

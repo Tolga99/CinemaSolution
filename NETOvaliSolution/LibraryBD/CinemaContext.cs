@@ -9,7 +9,6 @@ namespace ConsoleFilm
 {
     public class CinemaContext : DbContext
     {
-        private StreamReader f;
         private string line;
 
         public CinemaContext(DbContextOptions options) : base(options)
@@ -39,7 +38,5 @@ namespace ConsoleFilm
             set;
         }
         public string Line { get => line; set => line = value; }
-        public StreamReader F { get => f; set => f = value; }
-
     }
 }

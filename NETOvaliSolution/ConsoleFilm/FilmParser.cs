@@ -31,6 +31,8 @@ namespace ConsoleFilm
                                           // Initialisation des champs de base du film
             f.Id = Int32.Parse(filmdetailwords[0]);
             f.Title = filmdetailwords[1];
+            //DATE
+
             f.Vote_Average = double.Parse(filmdetailwords[5], CultureInfo.InvariantCulture);
             if (filmdetailwords[7] == "")
                 f.Runtime = 0;
