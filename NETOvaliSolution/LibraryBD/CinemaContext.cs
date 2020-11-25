@@ -9,8 +9,6 @@ namespace ConsoleFilm
 {
     public class CinemaContext : DbContext
     {
-        private string line;
-
         public CinemaContext(DbContextOptions options) : base(options)
         {
             //Database.SetInitializer(new DropCreateDatabaseAlways<CinemaContext>());
@@ -37,6 +35,5 @@ namespace ConsoleFilm
             get;
             set;
         }
-        public string Line { get => line; set => line = value; }
     }
 }
