@@ -12,9 +12,7 @@ namespace ConsoleFilm
         public CinemaContext(DbContextOptions options) : base(options)
         {
             //Database.SetInitializer(new DropCreateDatabaseAlways<CinemaContext>());
-
         }
-
         public DbSet<Film> Films
         {
             get;

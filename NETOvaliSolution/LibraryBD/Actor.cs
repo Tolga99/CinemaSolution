@@ -1,29 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 
 namespace LibraryBD
 {
     public class Actor
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        private int id;
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         private string name;
         private string surname;
         private ICollection<Film> films; 
-        public int Id { get => id; set => id = value; }
+        public int ActorId { get; set; }
         public string Name { get => name; set => name = value; }
         public string Surname { get => surname; set => surname = value; }
         //public virtual ICollection<Film> Films get => films; set => films = value; }
-        public virtual List<Film> Films { get; set; }
+        public virtual ICollection<Film> Films { get; set; }
         public Actor()
         {
-            Films = new List<Film>();
+            Films = new HashSet<Film>();
         }
-        public Actor(int ID, string nom, string surnom)
+        public Actor(int ActorId, string nom, string surnom)
         {
-            id = ID;
+            ActorId = ActorId;
             name = nom;
             surname = surnom;
         }
@@ -33,21 +33,30 @@ namespace LibraryBD
             string tmp;
             Char[] delimiterChars = { '\u2024' };
             acteurdetail = text.Split(delimiterChars);
-            Id = Int32.Parse(acteurdetail[0]);
-            Name = acteurdetail[1];
+            ActorId = Int32.Parse(acteurdetail[0]);
+            char[] spearator = { ' ', ' ' };
+            Int32 count = 2;
+
+            // Using the Method 
+            String[] strlist = acteurdetail[1].Split(spearator,count, StringSplitOptions.None);
+            if(strlist.Length==1)
+            {
+                Name = "";
+            }
+            else Name = strlist[1];
             delimiterChars[0] = '/';
             tmp = acteurdetail[2];
             characterdetail = tmp.Split(delimiterChars);
-            Surname = characterdetail[0];
+            Surname = strlist[0];
         }
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Actor :");
-            sb.AppendLine("ID :" + " " + this.Id + " " + "Name :" + " " + this.Name + " " + "Surname :" + " " + this.Surname);
+            sb.AppendLine("ID :" + " " + this.ActorId + " " + "Name :" + " " + this.Name + " " + "Surname :" + " " + this.Surname);
             return sb.ToString();
         }
-        public bool Equals(ICollection<Actor> list)
+        public bool Equals(ICollection<Actor> list) //Verifie si cet acteur est contenu dans la liste en parametre
         {
             //Check for null and compare run-time types.
             //if ((this == null) || !this.GetType().Equals(this.GetType()))
@@ -59,11 +68,21 @@ namespace LibraryBD
             //{
                 foreach (var a in list)
                 {
-                    if (a.Id == this.Id)
+                    if (a.ActorId == this.ActorId)
                         return true;
                 }
                 return false;
             //}
+        }
+        public List<Actor> Equals(int FilmId)
+        {
+            List < Actor > list= new List<Actor>();
+            foreach (var a in this.films)
+            {
+                if (a.FilmId == FilmId)
+                    list.Add(this);
+            }
+            return list;
         }
     }
 }

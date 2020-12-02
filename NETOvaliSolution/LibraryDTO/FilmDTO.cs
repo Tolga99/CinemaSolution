@@ -1,15 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using LibraryBD;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.SqlTypes;
-using System.Reflection.Metadata;
 using System.Text;
 
-namespace LibraryBD
+namespace LibraryDTO
 {
-    public class Film
+    public class FilmDTO
     {
+        private int id;
 
         public string ReadLine()
         {
@@ -22,8 +21,6 @@ namespace LibraryBD
         private double runtime;
         private string posterpath;
 
-        private ICollection<Actor> actors;
-        private ICollection<FilmType> filmTypelist;
         private ICollection<Comment> comments;
         //Collection comment
         public string Title { get => title; set => title = value; }
@@ -31,27 +28,16 @@ namespace LibraryBD
         public double Vote_Average { get => vote_Average; set => vote_Average = value; }
         public double Runtime { get => runtime; set => runtime = value; }
         public string Posterpath { get => posterpath; set => posterpath = value; }
-        //public virtual ICollection<Actor> Actors { get => actors; set => actors = value; }
-
-
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int FilmId { get; set; }
+        public int Id { get => id; set => id = value; }
         public virtual ICollection<Comment> Comments { get => comments; set => comments = value; }
-        public virtual ICollection<Actor> Actors { get; set; }
-        public virtual ICollection<FilmType> FilmTypelist { get => filmTypelist; set => filmTypelist = value; }
-        public Film()
+
+        public FilmDTO()
         {
-            Actors = new HashSet<Actor>();
-            FilmTypelist = new HashSet<FilmType>();
+
         }
-        public Film(ICollection<FilmType> type,ICollection<Actor>act)
+        public FilmDTO(int ID, string title, DateTime dates, double VoteA, double run, string path)
         {
-            Actors = act;
-            FilmTypelist = type;
-        }
-        public Film(int ID, string title, DateTime dates, double VoteA, double run, string path)
-        {
-            FilmId = ID;
+            Id = ID;
             Title = title;
             Release_Date = dates;
             Vote_Average = VoteA;
@@ -64,14 +50,6 @@ namespace LibraryBD
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Film :");
             sb.AppendLine("Title :" + Title + " " + "Date :" + " " + Release_Date + " " + "Vote Average :" + " " + vote_Average + " " + "Runtime :" + " " + Runtime + " " + "Posterpath :" + " " + Posterpath + " ");
-            foreach (FilmType data in filmTypelist)
-            {
-                sb.AppendLine("Genres :" + data.ToString());
-            }
-            foreach (Actor data in actors)
-            {
-                sb.AppendLine("Actors :" + data.ToString());
-            }
             return sb.ToString();
 
         }

@@ -29,9 +29,10 @@ namespace ConsoleFilm
             filmdetailwords = filmtext.Split(delimiterChars);
             delimiterChars[0] = '\u2016'; // verifier si c’est le bon délimiteur
                                           // Initialisation des champs de base du film
-            f.Id = Int32.Parse(filmdetailwords[0]);
+            f.FilmId = Int32.Parse(filmdetailwords[0]);
             f.Title = filmdetailwords[1];
-            //DATE
+            if(filmdetailwords[5].Equals("")==false)
+                f.Release_Date =Convert.ToDateTime(filmdetailwords[3]);
 
             f.Vote_Average = double.Parse(filmdetailwords[5], CultureInfo.InvariantCulture);
             if (filmdetailwords[7] == "")
@@ -66,7 +67,7 @@ namespace ConsoleFilm
                     if (s.Length > 0)//ds la bd ? ds le F ?
                     {
                         Actor newActor = new Actor(s);
-                        if (VerifIdActor(newActor.Id)!=null)
+                        if (VerifIdActor(newActor.ActorId) !=null)
                         {
                             Console.WriteLine("Acteur deja existant :" + s);
                         }else
@@ -85,7 +86,7 @@ namespace ConsoleFilm
         {
             //var query1 = CC.Actors.Where(a => a.Id == id);
             var query = from b in CC.Actors
-                            where b.Id == id
+                            where b.ActorId == id
                             select b;
             Console.WriteLine(query.FirstOrDefault());
             return query.FirstOrDefault();

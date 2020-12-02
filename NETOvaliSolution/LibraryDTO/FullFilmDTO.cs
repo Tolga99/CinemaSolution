@@ -1,21 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using LibraryBD;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.SqlTypes;
-using System.Reflection.Metadata;
 using System.Text;
 
-namespace LibraryBD
+namespace LibraryDTO
 {
-    public class Film
+    public class FullFilmDTO
     {
-
-        public string ReadLine()
-        {
-            throw new NotImplementedException();
-        }
-
         private string title;
         private DateTime release_Date;
         private double vote_Average;
@@ -39,17 +30,17 @@ namespace LibraryBD
         public virtual ICollection<Comment> Comments { get => comments; set => comments = value; }
         public virtual ICollection<Actor> Actors { get; set; }
         public virtual ICollection<FilmType> FilmTypelist { get => filmTypelist; set => filmTypelist = value; }
-        public Film()
+        public FullFilmDTO()
         {
             Actors = new HashSet<Actor>();
             FilmTypelist = new HashSet<FilmType>();
         }
-        public Film(ICollection<FilmType> type,ICollection<Actor>act)
+        public FullFilmDTO(ICollection<FilmType> type, ICollection<Actor> act)
         {
             Actors = act;
             FilmTypelist = type;
         }
-        public Film(int ID, string title, DateTime dates, double VoteA, double run, string path)
+        public FullFilmDTO(int ID, string title, DateTime dates, double VoteA, double run, string path)
         {
             FilmId = ID;
             Title = title;
@@ -58,6 +49,17 @@ namespace LibraryBD
             Runtime = run;
             Posterpath = path;
 
+        }
+        public FullFilmDTO(int ID, string title, DateTime dates, double VoteA, double run, string path, ICollection<FilmType> type, ICollection<Actor> act)
+        {
+            FilmId = ID;
+            Title = title;
+            Release_Date = dates;
+            Vote_Average = VoteA;
+            Runtime = run;
+            Posterpath = path;
+            Actors = act;
+            FilmTypelist = type;
         }
         public override string ToString()
         {

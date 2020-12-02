@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using LibraryDTO;
+using LibraryBLL;
 
 namespace ConsoleFilm
 {
@@ -17,26 +19,46 @@ namespace ConsoleFilm
             CinemaContext cinemaContext;
             DbContextOptionsBuilder<CinemaContext> optionsBuilder = new DbContextOptionsBuilder<CinemaContext>();
             optionsBuilder.UseSqlite("Data Source = C:\\Users\\t_olg\\Desktop\\Ecole\\Bloc 2-3 (2020-2021)\\Q1\\DotNet\\NETOvali\\Cinema.db ;Cache=Shared");
+
             cinemaContext = new CinemaContext(optionsBuilder.Options);
             cinemaContext.Database.EnsureDeleted();
             cinemaContext.Database.EnsureCreated();
 
             CreationDBMovie(optionsBuilder);
+            #region TEST ACTORS
+            ActorsDatabaseMethods act = new ActorsDatabaseMethods(cinemaContext);
+            List<LightActorDTO>l= act.GetListActorsByIdFilm(13); //OK 
+            List<ActorDTO>ac=act.GetFavoriteActors(); // PAS OK ret=0
 
-            
-            using (var db = new CinemaContext(optionsBuilder.Options))
-            {
-                var query = from b in db.Films
-                            where b.Title == "Star Wars"
-                            select b;
-                foreach (var item in query)
-                {
-                    Console.WriteLine(item.ToString());
-                }
-            }
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
+            #endregion
+            #region TEST FILMS
+            FilmsDatabaseMethods flm = new FilmsDatabaseMethods(cinemaContext);
+            List<FilmDTO>list=flm.FindListFilmByPartialActorName("Hanks"); //OK
+            FullFilmDTO ll=flm.GetFullFilmDetailsByIdFilm(6);//OK
 
+            #endregion
+
+            #region TEST ACTORS
+            FilmTypesDatabaseMethods fty = new FilmTypesDatabaseMethods(cinemaContext);
+            List<FilmTypeDTO>lll =fty.GetListFilmTypesByIdFilm(6); //OK
+
+            #endregion
+
+        }
+        private void update(CinemaContext cinemaContext)
+        {
+            var film = cinemaContext.Films.Find(4);
+            film.Title = "Title EOV";
+
+            cinemaContext.SaveChanges();
+        }
+
+        private void insert(CinemaContext cinemaContext)
+        {
+            var film = cinemaContext.Films;
+            //film.Title = "Title EOV";
+
+            cinemaContext.SaveChanges();
         }
         public static void CreationDBMovie(DbContextOptionsBuilder options)
         {
