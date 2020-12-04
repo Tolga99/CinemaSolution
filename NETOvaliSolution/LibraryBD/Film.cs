@@ -43,11 +43,13 @@ namespace LibraryBD
         {
             Actors = new HashSet<Actor>();
             FilmTypelist = new HashSet<FilmType>();
+            Comments = new HashSet<Comment>();
         }
-        public Film(ICollection<FilmType> type,ICollection<Actor>act)
+        public Film(ICollection<FilmType> type,ICollection<Actor>act,ICollection<Comment>cmt)
         {
             Actors = act;
             FilmTypelist = type;
+            Comments = cmt;
         }
         public Film(int ID, string title, DateTime dates, double VoteA, double run, string path)
         {
