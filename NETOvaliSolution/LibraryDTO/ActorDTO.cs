@@ -16,7 +16,7 @@ namespace LibraryDTO
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public string Surname { get => surname; set => surname = value; }
-        public int NbFilms { get => NbFilms; set => NbFilms = value; }
+        public int NbFilms { get => nbFilms; set => nbFilms = value; }
 
         //public virtual ICollection<Film> Films get => films; set => films = value; }
         public ActorDTO()

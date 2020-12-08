@@ -73,7 +73,7 @@ namespace ConsoleFilm
             int i = 0;
 
             List<Film> ListFilm = new List<Film>();
-            while ((Line = F.ReadLine()) != null && i < 1010)
+            while ((Line = F.ReadLine()) != null && i < 10000)
             {
                 if (Line == null)
                     return;

@@ -31,7 +31,7 @@ namespace ConsoleFilm
                                           // Initialisation des champs de base du film
             f.FilmId = Int32.Parse(filmdetailwords[0]);
             f.Title = filmdetailwords[1];
-            if(filmdetailwords[5].Equals("")==false)
+            if(filmdetailwords[3].Equals("")==false)
                 f.Release_Date =Convert.ToDateTime(filmdetailwords[3]);
 
             f.Vote_Average = double.Parse(filmdetailwords[5], CultureInfo.InvariantCulture);
@@ -69,14 +69,18 @@ namespace ConsoleFilm
                         Actor newActor = new Actor(s);
                         if (VerifIdActor(newActor.ActorId) !=null)
                         {
-                            Console.WriteLine("Acteur deja existant :" + s);
-                        }else
+                            Console.WriteLine("Acteur deja existant dans la BD :" + s);
+                            var Actor = CC.Actors.Find(newActor.ActorId);
+                            Actor.Films.Add(f);
+                            //CC.SaveChanges();
+                        }
+                        else
                         //if (f.Actors.Contains(newActor)==true)
                         if(newActor.Equals(f.Actors)==true)
                         {
-                            Console.WriteLine("Acteur deja existant :" + s);
+                            Console.WriteLine("Acteur deja existant dans le film:" + s);
                         }
-                        else f.Actors.Add(new Actor(s));
+                        else f.Actors.Add(newActor);
                     }
             }
             return f;

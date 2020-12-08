@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ConsoleFilm\ConsoleFilm.csproj" />
     <ProjectReference Include="..\LibraryBD\LibraryBD.csproj" />
   </ItemGroup>
 
