@@ -35,7 +35,7 @@ namespace LibraryDTO
         {
 
         }
-        public FilmDTO(int ID, string title, DateTime dates, double VoteA, double run, string path)
+        public FilmDTO(int ID, string title, DateTime dates, double VoteA, double run, string path,ICollection<Comment>cmt)
         {
             Id = ID;
             Title = title;
@@ -43,6 +43,7 @@ namespace LibraryDTO
             Vote_Average = VoteA;
             Runtime = run;
             Posterpath = path;
+            Comments = cmt;
 
         }
         public override string ToString()
@@ -50,6 +51,10 @@ namespace LibraryDTO
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Film :");
             sb.AppendLine("Title :" + Title + " " + "Date :" + " " + Release_Date + " " + "Vote Average :" + " " + vote_Average + " " + "Runtime :" + " " + Runtime + " " + "Posterpath :" + " " + Posterpath + " ");
+            foreach (Comment data in Comments)
+            {
+                sb.AppendLine("Commentaires :" + data.ToString());
+            }
             return sb.ToString();
 
         }

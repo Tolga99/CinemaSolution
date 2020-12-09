@@ -31,7 +31,7 @@ namespace LibraryBLL
             foreach (var actor in query)
             {
                 foreach (var film in actor.Films)
-                    list.Add(new FilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath));
+                    list.Add(new FilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath,film.Comments));
             }
             return list; // return les films legers ds lequel l'acteur a jouer 
         }
@@ -42,7 +42,7 @@ namespace LibraryBLL
                         where b.FilmId == id
                         select b;
             foreach (var film in query)
-                full = new FullFilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, film.FilmTypelist, film.Actors);
+                full = new FullFilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath,film.Comments, film.FilmTypelist, film.Actors);
             return full; //return les infos completes d'un film + des infos complementaires
         }
     }
