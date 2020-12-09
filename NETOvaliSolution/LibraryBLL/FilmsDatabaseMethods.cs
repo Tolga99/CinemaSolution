@@ -35,6 +35,21 @@ namespace LibraryBLL
             }
             return list; // return les films legers ds lequel l'acteur a jouer 
         }
+        public List<FilmDTO> FindListFilmByFullActorName(string name,string surname)
+        {
+            List<FilmDTO> list = new List<FilmDTO>();
+
+            var query = from b in CC.Actors.Include(a => a.Films)//AJOUTER SYSTEM.LINQ
+                        where b.Name == name && b.Surname==surname
+                        select b;
+
+            foreach (var actor in query)
+            {
+                foreach (var film in actor.Films)
+                    list.Add(new FilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, film.Comments));
+            }
+            return list; // return les films legers ds lequel l'acteur a jouer 
+        }
         public FullFilmDTO GetFullFilmDetailsByIdFilm(int id)
         {
             FullFilmDTO full=new FullFilmDTO();

@@ -15,11 +15,18 @@ namespace WebServerAPI.Controllers
     public class FilmController : ControllerBase
     {
         // GET: api/<FilmController>
-        [HttpGet("FindListFilmActor/{name}")]
+        [HttpGet("FindListFilmPartActor/{name}")]
         public IEnumerable<FilmDTO> FindListFilmByPartialActorName(string name)
         {
             FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
             return fdm.FindListFilmByPartialActorName(name);
+        }
+
+        [HttpGet("FindListFilmFullActor/{name}/{surname}")]
+        public IEnumerable<FilmDTO> FindListFilmByFullActorName(string name,string surname)
+        {
+            FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
+            return fdm.FindListFilmByFullActorName(name,surname);
         }
 
         [HttpGet("GetFFD/{id}")]
