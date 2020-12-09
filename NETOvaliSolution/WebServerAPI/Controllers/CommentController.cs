@@ -28,8 +28,8 @@ namespace WebServerAPI.Controllers
         }
 
         // POST api/<CommentController>
-        [HttpPost("{id}/{contenu}/{note}/{user}")]
-        public void Post(int id, string contenu, int note, string user)
+        [HttpPost("{id}/{note}/{user}")]
+        public void Post(int id, [FromBody]string contenu, int note, string user)
         {
             CommentsDatabaseMethods cdm = new CommentsDatabaseMethods();
             cdm.InsertCommentOnFilmId(id, contenu, note, user);

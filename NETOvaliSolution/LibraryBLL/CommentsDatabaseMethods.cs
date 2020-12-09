@@ -25,12 +25,19 @@ namespace LibraryBLL
         {
             //CC.
         }
+        public int FindLastId()
+        {
+            int max= CC.Comments.Max(i => i.Id);//AJOUTER SYSTEM.LINQ
+                        
+            return max+1;
+        }
         public void InsertCommentOnFilmId(int id,string contenu, int note,string user)
         {
             var film = CC.Films.Find(id);
             //var film = CC.Actor.Find(actor.Id);
-            CommentDTO comment = new CommentDTO(contenu, note, id, user, System.DateTime.UtcNow);
-            Comment cmt = new Comment(comment.Content, comment.Rate, comment.IdFilm, comment.Username, comment.DateCom);
+            int Comid=FindLastId();
+            CommentDTO comment = new CommentDTO(Comid,contenu, note, id, user, System.DateTime.UtcNow);
+            Comment cmt = new Comment(comment.Id,comment.Content, comment.Rate, comment.IdFilm, comment.Username, comment.DateCom);
             CC.Comments.Add(cmt);
             film.Comments.Add(cmt);
             CC.SaveChanges();

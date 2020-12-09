@@ -29,6 +29,7 @@ namespace TestDTO
         public void Test1()
         {
             ActorsDatabaseMethods act = new ActorsDatabaseMethods(cinemaContext);
+            act.GetListActorsByIdFilm(1);
         }
     }
 }

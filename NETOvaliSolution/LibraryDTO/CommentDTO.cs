@@ -6,7 +6,6 @@ namespace LibraryDTO
 {
     public class CommentDTO
     {
-        private static object sync = new object();
         private int id;
         private string content;
         private int rate;
@@ -22,18 +21,14 @@ namespace LibraryDTO
         public DateTime DateCom { get => dateCom; set => dateCom = value; }
         public int Id { get => id; set => id = value; }
         public static int GlobalCount { get => globalCount; set => globalCount = value; }
-        public static object Sync { get => sync; set => sync = value; }
 
         public CommentDTO()
         {
 
         }
-        public CommentDTO(string contenu, int note, int ID, string user, DateTime dates)
+        public CommentDTO(int iden, string contenu, int note, int ID, string user, DateTime dates)
         {
-            lock (Sync)
-            {
-                this.Id = ++globalCount;
-            }
+            Id = iden;
             Content = contenu;
             Rate = note;
             IdFilm = ID;
