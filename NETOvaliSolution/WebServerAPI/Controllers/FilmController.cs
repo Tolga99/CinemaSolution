@@ -16,27 +16,38 @@ namespace WebServerAPI.Controllers
     {
         // GET: api/<FilmController>
         [HttpGet("FindListFilmPartActor/{name}")]
-        public IEnumerable<FilmDTO> FindListFilmByPartialActorName(string name)
+        public IActionResult FindListFilmByPartialActorName(string name)
         {
             FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
-            return fdm.FindListFilmByPartialActorName(name);
+            List<FilmDTO>l= fdm.FindListFilmByPartialActorName(name);
+            if (l.Count == 0)
+                return NotFound(new NotFoundError("Film ou Acteur introuvable"));
+            else return Ok(l); 
         }
 
         [HttpGet("FindListFilmFullActor/{name}/{surname}")]
-        public IEnumerable<FilmDTO> FindListFilmByFullActorName(string name,string surname)
+        public IActionResult FindListFilmByFullActorName(string name,string surname)
         {
             FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
-            return fdm.FindListFilmByFullActorName(name,surname);
+            List<FilmDTO> l = fdm.FindListFilmByFullActorName(name, surname);
+            if (l.Count == 0)
+                return NotFound(new NotFoundError("Film ou Acteur introuvable"));
+            else return Ok(l);
         }
 
         [HttpGet("GetFFD/{id}")]
-        public List<FullFilmDTO> GetFullFilmDetailsByIdFilm(int id)
+        public IActionResult GetFullFilmDetailsByIdFilm(int id)
         {
+            if (id<=0 || id>int.MaxValue)
+            {
+                return BadRequest(new BadRequestError("Id of film is an invalid number"));
+            }
+
             FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
-            List<FullFilmDTO> ffl = new List<FullFilmDTO>();
-            ffl.Add(fdm.GetFullFilmDetailsByIdFilm(id));
-            
-            return ffl ;
+            FullFilmDTO l = fdm.GetFullFilmDetailsByIdFilm(id);
+            if (l.Title==null && l.Actors.Count==0)
+                return NotFound(new NotFoundError("Film introuvable"));
+            else return Ok(l);
         }
         
         //List<FilmDTO> FindListFilmByPartialActorName(string name)

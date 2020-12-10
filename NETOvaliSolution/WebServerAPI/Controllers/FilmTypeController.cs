@@ -16,10 +16,17 @@ namespace WebServerAPI.Controllers
     {
         // GET: api/<FilmTypeController>
         [HttpGet("ft/{id}")]
-        public IEnumerable<FilmTypeDTO> GetListFilmTypesByIdFilm(int id)
+        public IActionResult GetListFilmTypesByIdFilm(int id)
         {
+            if (id <= 0 || id > int.MaxValue)
+            {
+                return BadRequest(new BadRequestError("Id of film is an invalid number"));
+            }
             FilmTypesDatabaseMethods ftdm = new FilmTypesDatabaseMethods();
-            return ftdm.GetListFilmTypesByIdFilm(id);
+            List<FilmTypeDTO>l= ftdm.GetListFilmTypesByIdFilm(id);
+            if (l.Count == 0)
+                return NotFound(new NotFoundError("Film introuvable ou Type du film manquant"));
+            else return Ok(l);
         }
 
         // GET api/<FilmTypeController>/5

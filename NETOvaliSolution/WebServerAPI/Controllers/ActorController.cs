@@ -16,19 +16,36 @@ namespace WebServerAPI.Controllers
     {
         // GET: api/<ActorController>
         [HttpGet("favactors")]
-        public IEnumerable<ActorDTO> GetFavoriteActors()
+        public IActionResult GetFavoriteActors()
         {
             ActorsDatabaseMethods adm = new ActorsDatabaseMethods();
-            return adm.GetFavoriteActors();
+            List<ActorDTO>l= adm.GetFavoriteActors();
+            if (l.Count == 0)
+                return NotFound(new NotFoundError("Aucuns acteurs n'a joué plus de 2 films"));
+            else return Ok(l);
         }
 
+
+        /* public List<LightActorDTO> GetListActorsByIdFilm(int id)
+         {
+             ActorsDatabaseMethods adm = new ActorsDatabaseMethods();
+             return adm.GetListActorsByIdFilm(id);
+         }
+ */
         [HttpGet("actbyidf/{id}")]
-        public List<LightActorDTO> GetListActorsByIdFilm(int id)
+        public IActionResult GetListActorsByIdFilm(int id)
         {
-            ActorsDatabaseMethods adm = new ActorsDatabaseMethods();
-            return adm.GetListActorsByIdFilm(id);
-        }
+            if (id <= 0 || id > int.MaxValue)
+            {
+                return BadRequest(new BadRequestError("Id of film is an invalid number"));
+            }
 
+            ActorsDatabaseMethods adm = new ActorsDatabaseMethods();
+            List<LightActorDTO>l= adm.GetListActorsByIdFilm(id);
+            if (l.Count == 0)
+                return NotFound(new NotFoundError("Film introuvable"));
+            else return Ok(l);
+        }
         // POST api/<ActorController>
         [HttpPost]
         public void Post([FromBody] string value)
