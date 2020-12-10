@@ -21,6 +21,7 @@ namespace LibraryDTO
         {
             NbFilms = nb;
         }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

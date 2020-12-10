@@ -15,8 +15,8 @@ namespace WebServerAPI.Controllers
     public class FilmController : ControllerBase
     {
         // GET: api/<FilmController>
-        [HttpGet("FindListFilmPartActor/{name}")]
-        public IActionResult FindListFilmByPartialActorName(string name)
+       /* [HttpGet("name")]
+        public IActionResult FindListFilmByPartialActorName([FromQuery]string name)
         {
             FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
             List<FilmDTO>l= fdm.FindListFilmByPartialActorName(name);
@@ -24,18 +24,38 @@ namespace WebServerAPI.Controllers
                 return NotFound(new NotFoundError("Film ou Acteur introuvable"));
             else return Ok(l); 
         }
-
-        [HttpGet("FindListFilmFullActor/{name}/{surname}")]
-        public IActionResult FindListFilmByFullActorName(string name,string surname)
+       */
+        [HttpGet("name")]
+        public IActionResult FindListFilmByFullActorName([FromQuery]string name, [FromQuery] string surname="") //Ajouter 2 param de Page
         {
             FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
-            List<FilmDTO> l = fdm.FindListFilmByFullActorName(name, surname);
+            List<FilmDTO> l;
+            if (surname == "")
+            {
+                l = fdm.FindListFilmByPartialActorName(name);
+            }
+            else
+                l = fdm.FindListFilmByFullActorName(name, surname);
             if (l.Count == 0)
                 return NotFound(new NotFoundError("Film ou Acteur introuvable"));
             else return Ok(l);
         }
 
-        [HttpGet("GetFFD/{id}")]
+        [HttpGet("{id}")]
+        public IActionResult GetFilmByIdFilm(int id)
+        {
+            if (id <= 0 || id > int.MaxValue)
+            {
+                return BadRequest(new BadRequestError("Id of film is an invalid number"));
+            }
+
+            FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
+            FilmDTO l = fdm.FindFilmWComById(id);
+            if (l.Title==null)
+                return NotFound(new NotFoundError("Film introuvable"));
+            else return Ok(l);
+        }
+        [HttpGet("{id}/details")]
         public IActionResult GetFullFilmDetailsByIdFilm(int id)
         {
             if (id<=0 || id>int.MaxValue)

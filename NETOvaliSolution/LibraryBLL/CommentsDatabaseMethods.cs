@@ -9,38 +9,30 @@ namespace LibraryBLL
 {
     public class CommentsDatabaseMethods
     {
-        private CinemaContext CC;
-
+        public AccessMethods access;
         public CommentsDatabaseMethods()
         {
-            DbContextOptionsBuilder<CinemaContext> optionsBuilder = new DbContextOptionsBuilder<CinemaContext>();
-            optionsBuilder.UseSqlite("Data Source = C:\\Users\\t_olg\\Desktop\\Ecole\\Bloc 2-3 (2020-2021)\\Q1\\DotNet\\NETOvali\\Cinema.db ;Cache=Shared");
-            CC = new CinemaContext(optionsBuilder.Options);
+            access = new AccessMethods();
+
         }
-        public CommentsDatabaseMethods(CinemaContext cc)
+
+        public void InsertCommentOnFilmId(int idfilm,string contenu, int note,string user)
         {
-            CC = cc;
-        }
-        public void AddComment(CommentDTO cdto)
-        {
-            //CC.
-        }
-        public int FindLastId()
-        {
-            int max= CC.Comments.Max(i => i.Id);//AJOUTER SYSTEM.LINQ
-                        
-            return max+1;
-        }
-        public void InsertCommentOnFilmId(int id,string contenu, int note,string user)
-        {
-            var film = CC.Films.Find(id);
-            //var film = CC.Actor.Find(actor.Id);
-            int Comid=FindLastId();
-            CommentDTO comment = new CommentDTO(Comid,contenu, note, id, user, System.DateTime.UtcNow);
+            //var film = CC.Films.Find(id);
+            //int Comid=FindLastId();
+            var query= access.GetFilmWActorsById(idfilm);
+            Film film = null;
+            foreach(var fl in query)
+            {
+                film = new Film(fl.FilmId, fl.Title, fl.Release_Date, fl.Vote_Average, fl.Runtime, fl.Posterpath,fl.FilmTypelist,fl.Actors,fl.Comments);
+            }
+            int Comid=access.FindLastId();
+            CommentDTO comment = new CommentDTO(Comid,contenu, note, idfilm, user, System.DateTime.UtcNow);
             Comment cmt = new Comment(comment.Id,comment.Content, comment.Rate, comment.IdFilm, comment.Username, comment.DateCom);
-            CC.Comments.Add(cmt);
-            film.Comments.Add(cmt);
-            CC.SaveChanges();
+            access.AddComment(film, cmt);
+            //CC.Comments.Add(cmt);
+            //film.Comments.Add(cmt);
+            //CC.SaveChanges();
         }
     }
 }

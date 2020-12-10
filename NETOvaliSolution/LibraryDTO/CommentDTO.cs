@@ -12,7 +12,6 @@ namespace LibraryDTO
         private int idFilm;
         private string username;
         private DateTime dateCom;
-        private static int globalCount;
 
         public string Content { get => content; set => content = value; }
         public int Rate { get => rate; set => rate = value; }
@@ -20,7 +19,6 @@ namespace LibraryDTO
         public string Username { get => username; set => username = value; }
         public DateTime DateCom { get => dateCom; set => dateCom = value; }
         public int Id { get => id; set => id = value; }
-        public static int GlobalCount { get => globalCount; set => globalCount = value; }
 
         public CommentDTO()
         {

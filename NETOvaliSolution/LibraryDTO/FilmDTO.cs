@@ -20,7 +20,7 @@ namespace LibraryDTO
         private double vote_Average;
         private double runtime;
         private string posterpath;
-
+        private ICollection<CommentDTO> commentsD;
         private ICollection<Comment> comments;
         //Collection comment
         public string Title { get => title; set => title = value; }
@@ -30,6 +30,7 @@ namespace LibraryDTO
         public string Posterpath { get => posterpath; set => posterpath = value; }
         public int Id { get => id; set => id = value; }
         public virtual ICollection<Comment> Comments { get => comments; set => comments = value; }
+        public ICollection<CommentDTO> CommentsD { get => commentsD; set => commentsD = value; }
 
         public FilmDTO()
         {
@@ -44,6 +45,17 @@ namespace LibraryDTO
             Runtime = run;
             Posterpath = path;
             Comments = cmt;
+
+        }
+        public FilmDTO(int ID, string title, DateTime dates, double VoteA, double run, string path, ICollection<CommentDTO> cmt)
+        {
+            Id = ID;
+            Title = title;
+            Release_Date = dates;
+            Vote_Average = VoteA;
+            Runtime = run;
+            Posterpath = path;
+            CommentsD = cmt;
 
         }
         public override string ToString()

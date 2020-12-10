@@ -15,7 +15,7 @@ namespace WebServerAPI.Controllers
     public class ActorController : ControllerBase
     {
         // GET: api/<ActorController>
-        [HttpGet("favactors")]
+        [HttpGet("favorites")]
         public IActionResult GetFavoriteActors()
         {
             ActorsDatabaseMethods adm = new ActorsDatabaseMethods();
@@ -32,7 +32,22 @@ namespace WebServerAPI.Controllers
              return adm.GetListActorsByIdFilm(id);
          }
  */
-        [HttpGet("actbyidf/{id}")]
+        [HttpGet("{id}")]
+        public IActionResult GetActorById(int id)
+        {
+            if (id <= 0 || id > int.MaxValue)
+            {
+                return BadRequest(new BadRequestError("Id of actor is an invalid number"));
+            }
+
+            ActorsDatabaseMethods adm = new ActorsDatabaseMethods();
+            LightActorDTO l = adm.FindActorById(id);
+            if (l.Name == null)
+                return NotFound(new NotFoundError("Acteur introuvable"));
+            else return Ok(l);
+        }
+
+        [HttpGet("film/{id}")]
         public IActionResult GetListActorsByIdFilm(int id)
         {
             if (id <= 0 || id > int.MaxValue)

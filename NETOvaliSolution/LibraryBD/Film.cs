@@ -61,6 +61,18 @@ namespace LibraryBD
             Posterpath = path;
 
         }
+        public Film(int ID, string title, DateTime dates, double VoteA, double run, string path,ICollection<FilmType> type, ICollection<Actor> act, ICollection<Comment> cmt)
+        {
+            FilmId = ID;
+            Title = title;
+            Release_Date = dates;
+            Vote_Average = VoteA;
+            Runtime = run;
+            Posterpath = path;
+            Actors = act;
+            FilmTypelist = type;
+            Comments = cmt;
+        }
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

@@ -3,22 +3,17 @@ using LibraryDTO;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using LibraryBD;
 
- namespace LibraryBLL
+namespace LibraryBLL
 {
     public class ActorsDatabaseMethods
     {
-        private CinemaContext CC;
 
+        public AccessMethods access;
         public ActorsDatabaseMethods()
         {
-            DbContextOptionsBuilder<CinemaContext> optionsBuilder = new DbContextOptionsBuilder<CinemaContext>();
-            optionsBuilder.UseSqlite("Data Source = C:\\Users\\t_olg\\Desktop\\Ecole\\Bloc 2-3 (2020-2021)\\Q1\\DotNet\\NETOvali\\Cinema.db ;Cache=Shared");
-            CC = new CinemaContext(optionsBuilder.Options);
-        }
-        public ActorsDatabaseMethods(CinemaContext cc)
-        {
-            CC = cc;
+            access = new AccessMethods();
         }
         /*
         public ActorDTO SelectById(int ActorId)
@@ -55,12 +50,13 @@ using Microsoft.EntityFrameworkCore;
         public List<ActorDTO> GetFavoriteActors()
         {
             List<ActorDTO> list = new List<ActorDTO>();
-            var query = from b in CC.Actors.Include(a => a.Films)//AJOUTER SYSTEM.LINQ
-                        where b.Films.Count > 2
-                        select b;
-
+            //var query = from b in CC.Actors.Include(a => a.Films)//AJOUTER SYSTEM.LINQ
+            //            where b.Films.Count > 2
+            //            select b;
+            var query = access.GetAllActors();
             foreach (var actor in query)
             {
+                if(actor.Films.Count>2)
                 list.Add(new ActorDTO(actor.ActorId, actor.Name, actor.Surname,actor.Films.Count));
             }
 
@@ -69,10 +65,10 @@ using Microsoft.EntityFrameworkCore;
         public List<LightActorDTO> GetListActorsByIdFilm(int ID)
         {
             List<LightActorDTO> light = new List<LightActorDTO>();
-            var query = from b in CC.Films.Include(a => a.Actors)//AJOUTER SYSTEM.LINQ
-                        where b.FilmId == ID
-                        select b;
-
+            //var query = from b in CC.Films.Include(a => a.Actors)//AJOUTER SYSTEM.LINQ
+            //            where b.FilmId == ID
+            //            select b;
+            var query = access.GetFilmWActorsById(ID);
             foreach (var film in query)
             {
                 foreach (var actor in film.Actors)
@@ -81,6 +77,15 @@ using Microsoft.EntityFrameworkCore;
 
             return light;
 
+        }
+        public LightActorDTO FindActorById(int ID)
+        {
+            LightActorDTO act = null;
+
+            var query = access.GetActorById(ID);
+            foreach (var actor in query)
+                act = new LightActorDTO(actor.ActorId,actor.Name,actor.Surname);
+            return act; // return les films legers ds lequel l'acteur a jouer 
         }
     }
 

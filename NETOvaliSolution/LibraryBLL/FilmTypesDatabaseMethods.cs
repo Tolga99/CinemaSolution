@@ -3,30 +3,25 @@ using LibraryDTO;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using LibraryBD;
 
 namespace LibraryBLL
 {
     public class FilmTypesDatabaseMethods
     {
-        private CinemaContext CC;
-
+        public AccessMethods access;
         public FilmTypesDatabaseMethods()
         {
-            DbContextOptionsBuilder<CinemaContext> optionsBuilder = new DbContextOptionsBuilder<CinemaContext>();
-            optionsBuilder.UseSqlite("Data Source = C:\\Users\\t_olg\\Desktop\\Ecole\\Bloc 2-3 (2020-2021)\\Q1\\DotNet\\NETOvali\\Cinema.db ;Cache=Shared");
-            CC = new CinemaContext(optionsBuilder.Options);
-        }
-        public FilmTypesDatabaseMethods(CinemaContext cc)
-        {
-            CC = cc;
+            access = new AccessMethods();
         }
         public List<FilmTypeDTO> GetListFilmTypesByIdFilm(int id)
         {
             List<FilmTypeDTO> list = new List<FilmTypeDTO>();
-            var query = from b in CC.Films.Include(a => a.FilmTypelist)//AJOUTER SYSTEM.LINQ
-                        where b.FilmId == id
-                        select b;
+            //var query = from b in CC.Films.Include(a => a.FilmTypelist)//AJOUTER SYSTEM.LINQ
+            //            where b.FilmId == id
+            //            select b;
 
+            var query = access.GetFilmWTypesByIdFilm(id);
             foreach (var film in query)
             {
                 foreach (var genre in film.FilmTypelist)

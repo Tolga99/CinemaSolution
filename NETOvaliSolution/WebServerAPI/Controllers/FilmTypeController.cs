@@ -15,7 +15,7 @@ namespace WebServerAPI.Controllers
     public class FilmTypeController : ControllerBase
     {
         // GET: api/<FilmTypeController>
-        [HttpGet("ft/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetListFilmTypesByIdFilm(int id)
         {
             if (id <= 0 || id > int.MaxValue)
@@ -27,13 +27,6 @@ namespace WebServerAPI.Controllers
             if (l.Count == 0)
                 return NotFound(new NotFoundError("Film introuvable ou Type du film manquant"));
             else return Ok(l);
-        }
-
-        // GET api/<FilmTypeController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
         }
 
         // POST api/<FilmTypeController>

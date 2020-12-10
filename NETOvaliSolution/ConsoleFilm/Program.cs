@@ -26,26 +26,26 @@ namespace ConsoleFilm
 
             //CreationDBMovie(optionsBuilder);
             #region TEST ACTORS
-            ActorsDatabaseMethods act = new ActorsDatabaseMethods(cinemaContext);
+            ActorsDatabaseMethods act = new ActorsDatabaseMethods();
             List<LightActorDTO>l= act.GetListActorsByIdFilm(13); //OK 
             List<ActorDTO>ac=act.GetFavoriteActors(); // PAS OK ret=0
 
             #endregion
             #region TEST FILMS
-            FilmsDatabaseMethods flm = new FilmsDatabaseMethods(cinemaContext);
+            FilmsDatabaseMethods flm = new FilmsDatabaseMethods();
             List<FilmDTO>list=flm.FindListFilmByPartialActorName("Hanks"); //OK
             FullFilmDTO ll=flm.GetFullFilmDetailsByIdFilm(6);//OK
 
             #endregion
 
             #region TEST ACTORS
-            FilmTypesDatabaseMethods fty = new FilmTypesDatabaseMethods(cinemaContext);
+            FilmTypesDatabaseMethods fty = new FilmTypesDatabaseMethods();
             List<FilmTypeDTO>lll =fty.GetListFilmTypesByIdFilm(6); //OK
 
             #endregion
 
             #region TEST Comments
-            CommentsDatabaseMethods cmt = new CommentsDatabaseMethods(cinemaContext);
+            CommentsDatabaseMethods cmt = new CommentsDatabaseMethods();
             cmt.InsertCommentOnFilmId(13,"Tres bon film",5,"Tolga");
             #endregion
         }

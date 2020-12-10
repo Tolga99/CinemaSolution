@@ -3,35 +3,33 @@ using LibraryDTO;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using LibraryBD;
 
 namespace LibraryBLL
 {
     public class FilmsDatabaseMethods
     {
-        private CinemaContext CC;
-
+        public AccessMethods access;
         public FilmsDatabaseMethods()
         {
-            DbContextOptionsBuilder<CinemaContext> optionsBuilder = new DbContextOptionsBuilder<CinemaContext>();
-            optionsBuilder.UseSqlite("Data Source = C:\\Users\\t_olg\\Desktop\\Ecole\\Bloc 2-3 (2020-2021)\\Q1\\DotNet\\NETOvali\\Cinema.db ;Cache=Shared");
-            CC = new CinemaContext(optionsBuilder.Options);
+            access = new AccessMethods();
         }
-        public FilmsDatabaseMethods(CinemaContext cc)
-        {
-            CC = cc;
-        }
+
         public List<FilmDTO> FindListFilmByPartialActorName(string name)
         {
             List<FilmDTO> list = new List<FilmDTO>();
 
-            var query = from b in CC.Actors.Include(a => a.Films)//AJOUTER SYSTEM.LINQ
-                         where b.Name==name
-                        select b;
-
+            //var query = from b in CC.Actors.Include(a => a.Films)//AJOUTER SYSTEM.LINQ
+            //             where b.Name==name
+            //            select b;
+            var query = access.GetAllActors();
             foreach (var actor in query)
             {
-                foreach (var film in actor.Films)
-                    list.Add(new FilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath,film.Comments));
+                if (actor.Name == name)
+                {
+                    foreach (var film in actor.Films)
+                        list.Add(new FilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, film.Comments));
+                }
             }
             return list; // return les films legers ds lequel l'acteur a jouer 
         }
@@ -39,25 +37,61 @@ namespace LibraryBLL
         {
             List<FilmDTO> list = new List<FilmDTO>();
 
-            var query = from b in CC.Actors.Include(a => a.Films)//AJOUTER SYSTEM.LINQ
-                        where b.Name == name && b.Surname==surname
-                        select b;
-
+            //var query = from b in CC.Actors.Include(a => a.Films)//AJOUTER SYSTEM.LINQ
+            //            where b.Name == name && b.Surname==surname
+            //            select b;
+            var query = access.GetAllActors();
             foreach (var actor in query)
             {
-                foreach (var film in actor.Films)
-                    list.Add(new FilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, film.Comments));
+                if (actor.Name == name && actor.Surname == surname)
+                {
+                    foreach (var film in actor.Films)
+                        list.Add(new FilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, film.Comments));
+                }
             }
             return list; // return les films legers ds lequel l'acteur a jouer 
         }
+        public FilmDTO FindFilmWComById(int ID)
+        {
+            FilmDTO flm = null ;
+
+            var query = access.GetFilmWComById(ID);
+            foreach (var film in query)
+                flm= new FilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, film.Comments);
+            return flm; // return les films legers ds lequel l'acteur a jouer 
+        }
         public FullFilmDTO GetFullFilmDetailsByIdFilm(int id)
         {
+
             FullFilmDTO full=new FullFilmDTO();
-            var query = from b in CC.Films.Include(a => a.Actors).Include(c => c.FilmTypelist).Include(e => e.Comments)//AJOUTER SYSTEM.LINQ
-                        where b.FilmId == id
-                        select b;
+            List<LightActorDTO> lightActors = new List<LightActorDTO>();
+            List<FilmTypeDTO> filmTypes = new List<FilmTypeDTO>();
+            List<CommentDTO> comments = new List<CommentDTO>();
+            //var query = from b in CC.Films.Include(a => a.Actors).Include(c => c.FilmTypelist).Include(e => e.Comments)//AJOUTER SYSTEM.LINQ
+            //            where b.FilmId == id
+            //            select b;
+            //Methode d'acces au DbContext doit etre dans la DAL
+            //Faire query.SKIP pour la pagination
+            var query = access.GetFullFilmByIdFilm(id);
+            var count = query.Count();
+            var items = query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            return new PagedList<FullFilmDTO>(items, count, pageNumber, pageSize);
             foreach (var film in query)
-                full = new FullFilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath,film.Comments, film.FilmTypelist, film.Actors);
+            {
+                foreach(var act in film.Actors)
+                {
+                    lightActors.Add(new LightActorDTO(act.ActorId, act.Name, act.Surname));
+                }
+                foreach (var typ in film.FilmTypelist)
+                {
+                    filmTypes.Add(new FilmTypeDTO(typ.Id, typ.Name));
+                }
+                foreach (var cmt in film.Comments)
+                {
+                    comments.Add(new CommentDTO(cmt.Id, cmt.Content, cmt.Rate, cmt.IdFilm, cmt.Username, cmt.DateCom));
+                }
+                full = new FullFilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, comments, filmTypes,lightActors);
+            }
             return full; //return les infos completes d'un film + des infos complementaires
         }
     }
