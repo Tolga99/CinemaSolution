@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using LibraryBD;
+using System;
 
 namespace LibraryBLL
 {
@@ -60,10 +61,10 @@ namespace LibraryBLL
                 flm= new FilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, film.Comments);
             return flm; // return les films legers ds lequel l'acteur a jouer 
         }
-        public FullFilmDTO GetFullFilmDetailsByIdFilm(int id)
+        public List<FullFilmDTO> GetFullFilmDetailsByIdFilm(int id)
         {
 
-            FullFilmDTO full=new FullFilmDTO();
+            List<FullFilmDTO> full=new List<FullFilmDTO>();
             List<LightActorDTO> lightActors = new List<LightActorDTO>();
             List<FilmTypeDTO> filmTypes = new List<FilmTypeDTO>();
             List<CommentDTO> comments = new List<CommentDTO>();
@@ -73,9 +74,7 @@ namespace LibraryBLL
             //Methode d'acces au DbContext doit etre dans la DAL
             //Faire query.SKIP pour la pagination
             var query = access.GetFullFilmByIdFilm(id);
-            var count = query.Count();
-            var items = query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-            return new PagedList<FullFilmDTO>(items, count, pageNumber, pageSize);
+            //return items;
             foreach (var film in query)
             {
                 foreach(var act in film.Actors)
@@ -90,8 +89,10 @@ namespace LibraryBLL
                 {
                     comments.Add(new CommentDTO(cmt.Id, cmt.Content, cmt.Rate, cmt.IdFilm, cmt.Username, cmt.DateCom));
                 }
-                full = new FullFilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, comments, filmTypes,lightActors);
+                full.Add(new FullFilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, comments, filmTypes,lightActors));
             }
+
+            // Get's No of Rows Count   
             return full; //return les infos completes d'un film + des infos complementaires
         }
     }

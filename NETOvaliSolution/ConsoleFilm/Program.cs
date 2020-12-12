@@ -34,7 +34,7 @@ namespace ConsoleFilm
             #region TEST FILMS
             FilmsDatabaseMethods flm = new FilmsDatabaseMethods();
             List<FilmDTO>list=flm.FindListFilmByPartialActorName("Hanks"); //OK
-            FullFilmDTO ll=flm.GetFullFilmDetailsByIdFilm(6);//OK
+            //FullFilmDTO ll=flm.GetFullFilmDetailsByIdFilm(6);//OK
 
             #endregion
 
