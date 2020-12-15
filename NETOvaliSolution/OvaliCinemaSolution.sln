@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryDTO", "LibraryDTO\Li
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDTO", "TestDTO\TestDTO.csproj", "{D3EF439F-94EC-49FC-9838-3F5333A7442E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebServerAPI", "WebServerAPI\WebServerAPI.csproj", "{1FD9A6B6-1FEA-4C8C-B9A6-366F8763F70C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServerAPI", "WebServerAPI\WebServerAPI.csproj", "{1FD9A6B6-1FEA-4C8C-B9A6-366F8763F70C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaApplication", "CinemaApplication\CinemaApplication.csproj", "{07456FA4-EA23-42BE-A8A9-800470EE8E74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{1FD9A6B6-1FEA-4C8C-B9A6-366F8763F70C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FD9A6B6-1FEA-4C8C-B9A6-366F8763F70C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FD9A6B6-1FEA-4C8C-B9A6-366F8763F70C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07456FA4-EA23-42BE-A8A9-800470EE8E74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07456FA4-EA23-42BE-A8A9-800470EE8E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07456FA4-EA23-42BE-A8A9-800470EE8E74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07456FA4-EA23-42BE-A8A9-800470EE8E74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
