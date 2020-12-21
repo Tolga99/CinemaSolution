@@ -18,11 +18,12 @@ namespace CinemaApplication.ViewModel
     public class FilmViewModel : INotifyPropertyChanged
     {
         int i = 0;
+        
         public ObservableCollection<FilmModel> Films { get; set; }
         public ICommand cmdClick { get; set; }
         public ICommand cmdSearch { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
-        String rech;
+        public String rech { get; set; }
         protected void OnPropertyChanged([CallerMemberName] string name=null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -52,21 +53,19 @@ namespace CinemaApplication.ViewModel
         private async void Search()
         {
             Client ac = new Client("http://localhost:53454/swagger/v1/swagger.json", new System.Net.Http.HttpClient());
-            
-            
+            var content = new StringContent('"'+rech+'"', Encoding.UTF8,"application/json");
             using (var httpClient = new HttpClient())
             {
-                i++;
-                using (var response = await httpClient.GetAsync("http://localhost:53454/api/film/name"))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                  /*  var f = JsonConvert.DeserializeObject<List<LibraryDTO.FullFilmDTO>>(apiResponse);
-                    Films.Clear();
-                    foreach (var ff in f)
+                 using (var response = await httpClient.PostAsync("http://localhost:53454/api/Film/name",content))
+                 {
+                     string apiResponse = await response.Content.ReadAsStringAsync();
+                     var ff = JsonConvert.DeserializeObject<LibraryDTO.FullFilmDTO>(apiResponse);
+                     Films.Clear();
+                     if(ff==null)
                     {
-                        Films.Add(new FilmModel(ff.Posterpath, ff.Title, ff.Runtime, null));
-                    }*/
-                }
+                        Console.WriteLine("Film pas trouve");
+                    }else Films.Add(new FilmModel(ff.Posterpath, ff.Title, ff.Runtime, null));
+                 }
             }
         }
 

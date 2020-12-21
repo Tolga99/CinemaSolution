@@ -26,7 +26,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Next Page" Command="{Binding cmdClick}" Margin="168,350,555,53"/>
-        <TextBox Name="searchText" HorizontalAlignment="Left" Margin="913,91,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Text="{Binding rech}" Name="searchText" HorizontalAlignment="Left" Margin="913,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button Command="{Binding cmdSearch}" CommandParameter="{Binding Text,ElementName=searchText}" Content="Rechercher" Name="Search" HorizontalAlignment="Left" Margin="953,137,0,0" VerticalAlignment="Top"/>
         <Label Content="Recherche :" HorizontalAlignment="Left" Margin="814,87,0,0" VerticalAlignment="Top" Width="94"/>
 

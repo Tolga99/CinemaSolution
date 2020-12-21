@@ -176,14 +176,14 @@ namespace WebServerAPI.Controllers
 
         }
 
-        [HttpGet("name")]
-        public IActionResult GetFilmByIdFilm([FromQuery] string title)
+        [HttpPost("name")]
+        public FullFilmDTO GetFilmByIdFilm([FromBody] string title)
         {
             FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
             FullFilmDTO l = fdm.GetFilmByTitle(title);
             if (l.Title == null)
-                return NotFound(new NotFoundError("Film introuvable"));
-            else return Ok(l);
+                return null;
+            else return l;
         }
         //List<FilmDTO> FindListFilmByPartialActorName(string name)
         //// GET api/<FilmController>/5
