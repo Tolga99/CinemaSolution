@@ -1,0 +1,35 @@
+﻿<Window x:Class="CinemaApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CinemaApplication.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="525" Width="1083"
+        >
+    <Window.DataContext>
+        <local:FilmViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <DataGrid Grid.Row="0" ItemsSource="{Binding Films}" AutoGenerateColumns="False" Margin="0,82,377,102">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="80" Header="Image">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Pic}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Titre" Binding="{Binding Title}" />
+                <DataGridTextColumn Header="Runtime" Binding="{Binding Runtime}" />
+                <DataGridTextColumn Header="Genre" Binding="{Binding Genres}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Next Page" Command="{Binding cmdClick}" Margin="168,350,555,53"/>
+        <TextBox Name="searchText" HorizontalAlignment="Left" Margin="913,91,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Command="{Binding cmdSearch}" CommandParameter="{Binding Text,ElementName=searchText}" Content="Rechercher" Name="Search" HorizontalAlignment="Left" Margin="953,137,0,0" VerticalAlignment="Top"/>
+        <Label Content="Recherche :" HorizontalAlignment="Left" Margin="814,87,0,0" VerticalAlignment="Top" Width="94"/>
+
+    </Grid>
+
+</Window>

@@ -1,8 +1,9 @@
-﻿<Application x:Class="CinemaApplication.App"
+﻿<Application x:Class="TEST_WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CinemaApplication" xmlns:local1="clr-namespace:CinemaApplication.Model"
-             StartupUri="Views/MainWindow.xaml">
+             xmlns:local="clr-namespace:TEST_WPF"
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
+         
     </Application.Resources>
 </Application>

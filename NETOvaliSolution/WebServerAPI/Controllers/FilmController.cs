@@ -122,7 +122,69 @@ namespace WebServerAPI.Controllers
             }
 
         }
-        
+        [HttpGet("all")]
+        public IEnumerable<FullFilmDTO> GetAllFilms([FromQuery] int page, [FromQuery] int pagesize)
+        {
+            PagingParameterModel pagingparametermodel = new PagingParameterModel();
+            pagingparametermodel.pageNumber = page;
+            pagingparametermodel.pageSize = pagesize;
+
+            FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
+            List<FullFilmDTO> l = fdm.GetAllFilms();
+            List<LightActorDTO> actors = new List<LightActorDTO>();
+            foreach (FullFilmDTO f in l)
+            {
+
+                foreach (LightActorDTO act in f.Actors)
+                {
+                    actors.Add(act);
+                }
+                f.Actors.Clear();
+            }
+            int count = l.Count;
+            int CurrentPage = pagingparametermodel.pageNumber;
+            int PageSize = pagingparametermodel.pageSize;
+            int TotalCount = count;
+
+            int TotalPages = (int)Math.Ceiling(count / (double)PageSize);
+
+            List<FullFilmDTO> items = l.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
+
+            // if CurrentPage is greater than 1 means it has previousPage  
+            var previousPage = CurrentPage > 1 ? "Yes" : "No";
+
+            // if TotalPages is greater than CurrentPage means it has nextPage  
+            var nextPage = CurrentPage < TotalPages ? "Yes" : "No";
+
+            // Object which we are going to send in header   
+            var paginationMetadata = new
+            {
+                totalCount = TotalCount,
+                pageSize = PageSize,
+                currentPage = CurrentPage,
+                totalPages = TotalPages,
+                previousPage,
+                nextPage
+            };
+            /*foreach (LightActorDTO actor in items)
+            {
+                l.FirstOrDefault().Actors.Add(actor);
+            }*/
+            //if (l.Title == null && l.Actors.Count == 0)
+            //    return NotFound(new NotFoundError("Film introuvable"));
+            return items;
+
+        }
+
+        [HttpGet("name")]
+        public IActionResult GetFilmByIdFilm([FromQuery] string title)
+        {
+            FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
+            FullFilmDTO l = fdm.GetFilmByTitle(title);
+            if (l.Title == null)
+                return NotFound(new NotFoundError("Film introuvable"));
+            else return Ok(l);
+        }
         //List<FilmDTO> FindListFilmByPartialActorName(string name)
         //// GET api/<FilmController>/5
         //[HttpGet("{id}")]

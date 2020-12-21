@@ -54,6 +54,20 @@ namespace LibraryBD
             return query;
 
         }
+        public IQueryable<Film> GetAllFilms() //Retourne un film detaillé grace a son id
+        {
+            var query = from b in CC.Films.Include(a => a.Actors).Include(c => c.FilmTypelist).Include(e => e.Comments)//AJOUTER SYSTEM.LINQ
+                        orderby b.Title
+                        select b;
+            return query;
+        }
+        public IQueryable<Film> GetFullFilmByTitle(string title) //Retourne un film detaillé grace a son id
+        {
+            var query = from b in CC.Films.Include(c => c.FilmTypelist).Include(e => e.Comments)//AJOUTER SYSTEM.LINQ
+                        where b.Title.ToLower() == title.ToLower()
+                        select b;
+            return query;
+        }
         public IQueryable<Film> GetFilmWTypesByIdFilm(int id) //GetListFilmTypesByIdFilm
         {
             var query = from b in CC.Films.Include(a => a.FilmTypelist)//AJOUTER SYSTEM.LINQ

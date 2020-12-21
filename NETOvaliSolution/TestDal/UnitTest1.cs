@@ -84,7 +84,7 @@ namespace TestDal
                     return;
 
                 // Creation d'un objet film
-                FilmParser filmtext = new FilmParser()
+                FilmParser filmtext = new FilmParser();
                 Console.WriteLine("La ligne = " + Line);
                 Film film = FilmParser.DecodeFilmText(Line); //un film a la fois 
                 i++;
