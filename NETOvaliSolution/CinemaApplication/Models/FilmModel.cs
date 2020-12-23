@@ -12,14 +12,18 @@ namespace CinemaApplication.Model
         private string pic;
         private string title;
         private string runtime;
-        private List<FilmTypeDTO> genres;
+        private string genres;
+        //private ICollection<FilmTypeDTO> genres;
+        private ICollection<CommentDTO> comments;
         //public string Image { get => Image1; set => Image1 = value; }
         public string Title { get => title; set => title = value; }
         public string Runtime { get => runtime; set => runtime = value; }
-        public List<FilmTypeDTO> Genres { get => genres; set => genres = value; }
+        //public ICollection<FilmTypeDTO> Genres { get => Genres1; set => Genres1 = value; }
         public string Pic { get => pic; set => pic = value; }
+        public ICollection<CommentDTO> Comments { get => comments; set => comments = value; }
+        public string Genres { get => genres; set => genres = value; }
 
-        public FilmModel(string img, string titre,double temps,List<FilmTypeDTO> list)
+        public FilmModel(string img, string titre,double temps,string genre, ICollection<CommentDTO>cmt)
         {
             
             //pic.Width = 50;
@@ -36,6 +40,8 @@ namespace CinemaApplication.Model
             Pic = "http://image.tmdb.org/t/p/w185"+img;
             Title = titre;
             Runtime = RuntimeConvert(temps);
+            Comments = cmt;
+            Genres = genre;
             //Genres = list;
         }
         public String RuntimeConvert(double run)

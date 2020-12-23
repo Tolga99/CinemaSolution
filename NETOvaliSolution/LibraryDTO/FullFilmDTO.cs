@@ -13,7 +13,7 @@ namespace LibraryDTO
 
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public virtual ICollection<LightActorDTO> Actors { get; set; }
-        public virtual ICollection<FilmTypeDTO> FilmTypelist { get => filmTypelist; set => filmTypelist = value; }
+        public ICollection<FilmTypeDTO> FilmTypelist { get => filmTypelist; set => filmTypelist = value; }
         public FullFilmDTO() : base()
         {
             Actors = new HashSet<LightActorDTO>();

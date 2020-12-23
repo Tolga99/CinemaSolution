@@ -45,7 +45,7 @@ namespace CinemaApplication.ViewModel
                     Films.Clear();
                     foreach (var ff in f)
                     {
-                        Films.Add(new FilmModel(ff.Posterpath,ff.Title,ff.Runtime,null));
+                        Films.Add(new FilmModel(ff.Posterpath,ff.Title,ff.Runtime, GenreImage(ff.FilmTypelist), ff.CommentsD));
                     }
                 }
             }
@@ -64,7 +64,7 @@ namespace CinemaApplication.ViewModel
                      if(ff==null)
                     {
                         Console.WriteLine("Film pas trouve");
-                    }else Films.Add(new FilmModel(ff.Posterpath, ff.Title, ff.Runtime, null));
+                    }else Films.Add(new FilmModel(ff.Posterpath, ff.Title, ff.Runtime,GenreImage(ff.FilmTypelist),ff.CommentsD));
                  }
             }
         }
@@ -74,6 +74,7 @@ namespace CinemaApplication.ViewModel
             cmdClick = new DelegateCommand((a) => NextPage());
             cmdSearch = new DelegateCommand((a) => Search());
             Films = new ObservableCollection<FilmModel>();
+            
            /* Films.Add(new FilmModel()
             {
                 Title = "Film 1",
@@ -86,6 +87,69 @@ namespace CinemaApplication.ViewModel
                 Runtime = "1h30"
             });*/
         }
+        public string GenreImage(ICollection<LibraryDTO.FilmTypeDTO> list)
+        {
+            IEnumerator<LibraryDTO.FilmTypeDTO> enume= list.GetEnumerator();
+            while (enume.MoveNext()!=null)
+            {
+                if (enume.Current == null)
+                {
+                    return "https://image.flaticon.com/icons/png/512/36/36601.png";
+                }
+                else
+                {
+                    if (enume.Current.Name == "Adventure")
+                    {
+                        return "https://static.thenounproject.com/png/1034013-200.png";
+                    }
+                    else if (enume.Current.Name == "Action")
+                    {
+                        return "https://icon-library.com/images/icon-action/icon-action-9.jpg";
+                    }
+                    else if (enume.Current.Name == "Animation")
+                    {
+                        return "https://individual.icons-land.com/IconsPreview/Multimedia/PNG/256x256/FilmGenre_Cartoon.png";
+                    }
+                    else if (enume.Current.Name == "Drama")
+                    {
+                        return "https://static.thenounproject.com/png/589710-200.png";
+                    }
+                    else if (enume.Current.Name == "Horror")
+                    {
+                        return "https://static.thenounproject.com/png/2972512-200.png";
+                    }
+                    else if (enume.Current.Name == "Comedy")
+                    {
+                        return "https://static.thenounproject.com/png/60743-200.png";
+                    }
+                    else if (enume.Current.Name == "Western")
+                    {
+                        return "https://image.flaticon.com/icons/png/512/83/83662.png";
+                    }
+                    else if (enume.Current.Name == "Music")
+                    {
+                        return "https://cdn3.iconfinder.com/data/icons/music-and-audio-1/26/music-audio-1027-512.png";
+                    }
+                    else if (enume.Current.Name == "Science Fiction")
+                    {
+                        return "https://static.thenounproject.com/png/61057-200.png";
+                    }
+                    else if (enume.Current.Name == "Romance")
+                    {
+                        return "https://cdn.iconscout.com/icon/premium/png-256-thumb/romance-21-895354.png";
+                    }
+                    else if (enume.Current.Name == "Documentary")
+                    {
+                        return "https://cdn.iconscout.com/icon/premium/png-512-thumb/documentary-3-581150.png";
+                    }
+                    else if (enume.Current.Name == "Thriller")
+                    {
+                        return "https://image.shutterstock.com/image-vector/thriller-book-icon-outline-vector-260nw-1830363263.jpg";
+                    }
+                }
 
+            }
+            return "https://image.flaticon.com/icons/png/512/36/36601.png";
+        }
     }
 }

@@ -50,14 +50,18 @@ namespace ConsoleFilm
                         FilmType newType = new FilmType(s);
                         if (VerifIdFilmType(newType.Id) != null)
                         {
-                            Console.WriteLine("Genre deja existant :" + s);
+                            Console.WriteLine("Acteur deja existant dans la BD :" + s);
+                            var FilmTyp = CC.FilmTypes.Find(newType.Id);
+                            FilmTyp.Films.Add(f);
+                            //CC.SaveChanges();
                         }
                         else
-                        if (f.FilmTypelist.Contains(newType)==true)
+                        //if (f.Actors.Contains(newActor)==true)
+                        if (newType.Equals(f.FilmTypelist) == true)
                         {
-                            Console.WriteLine("Genre deja existant : " + s);
+                            Console.WriteLine("Acteur deja existant dans le film:" + s);
                         }
-                        else f.FilmTypelist.Add(new FilmType(s));
+                        else f.FilmTypelist.Add(newType);
 
                     }
 

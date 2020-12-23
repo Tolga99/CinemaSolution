@@ -22,7 +22,13 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Titre" Binding="{Binding Title}" />
                 <DataGridTextColumn Header="Runtime" Binding="{Binding Runtime}" />
-                <DataGridTextColumn Header="Genre" Binding="{Binding Genres}" />
+                <DataGridTemplateColumn Width="80" Header="Genre">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Genres}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Next Page" Command="{Binding cmdClick}" Margin="168,350,555,53"/>

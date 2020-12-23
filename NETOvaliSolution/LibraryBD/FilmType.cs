@@ -11,7 +11,7 @@ namespace LibraryBD
         private ICollection<Film> films;
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
-        public ICollection<Film> Films { get => films; set => films = value; }
+        public virtual ICollection<Film> Films { get; set; }
 
         public FilmType()
         {
@@ -36,6 +36,34 @@ namespace LibraryBD
             sb.AppendLine("Genre :");
             sb.AppendLine("ID :" + " " + this.Id + " " + "Genre :" + " " + this.Name);
             return sb.ToString();
+        }
+        public List<FilmType> Equals(int FilmId)
+        {
+            List<FilmType> list = new List<FilmType>();
+            foreach (var a in this.films)
+            {
+                if (a.FilmId == FilmId)
+                    list.Add(this);
+            }
+            return list;
+        }
+        public bool Equals(ICollection<FilmType> list) //Verifie si cet acteur est contenu dans la liste en parametre
+        {
+            //Check for null and compare run-time types.
+            //if ((this == null) || !this.GetType().Equals(this.GetType()))
+            //{
+            //   return false;
+            //}
+            //else
+            //if
+            //{
+            foreach (var a in list)
+            {
+                if (a.Id == this.Id)
+                    return true;
+            }
+            return false;
+            //}
         }
     }
 }

@@ -44,6 +44,7 @@ namespace LibraryBLL
             var query = access.GetAllActors();
             foreach (var actor in query)
             {
+
                 if (actor.Name == name && actor.Surname == surname)
                 {
                     foreach (var film in actor.Films)
@@ -77,7 +78,10 @@ namespace LibraryBLL
             //return items;
             foreach (var film in query)
             {
-                foreach(var act in film.Actors)
+                filmTypes.Clear();
+                comments.Clear();
+                lightActors.Clear();
+                foreach (var act in film.Actors)
                 {
                     lightActors.Add(new LightActorDTO(act.ActorId, act.Name, act.Surname));
                 }
@@ -101,8 +105,6 @@ namespace LibraryBLL
 
             List<FullFilmDTO> full = new List<FullFilmDTO>();
             List<LightActorDTO> lightActors = new List<LightActorDTO>();
-            List<FilmTypeDTO> filmTypes = new List<FilmTypeDTO>();
-            List<CommentDTO> comments = new List<CommentDTO>();
             //var query = from b in CC.Films.Include(a => a.Actors).Include(c => c.FilmTypelist).Include(e => e.Comments)//AJOUTER SYSTEM.LINQ
             //            where b.FilmId == id
             //            select b;
@@ -112,10 +114,12 @@ namespace LibraryBLL
             //return items;
             foreach (var film in query)
             {
-               // foreach (var act in film.Actors)
-               //{
-               //     lightActors.Add(new LightActorDTO(act.ActorId, act.Name, act.Surname));
-               // }
+                List<FilmTypeDTO> filmTypes = new List<FilmTypeDTO>();
+                List<CommentDTO> comments = new List<CommentDTO>();
+                // foreach (var act in film.Actors)
+                //{
+                //     lightActors.Add(new LightActorDTO(act.ActorId, act.Name, act.Surname));
+                // }
                 foreach (var typ in film.FilmTypelist)
                 {
                     filmTypes.Add(new FilmTypeDTO(typ.Id, typ.Name));
@@ -124,7 +128,7 @@ namespace LibraryBLL
                 {
                     comments.Add(new CommentDTO(cmt.Id, cmt.Content, cmt.Rate, cmt.IdFilm, cmt.Username, cmt.DateCom));
                 }
-                full.Add(new FullFilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, comments, filmTypes, lightActors));
+                full.Add(new FullFilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath,comments, filmTypes, lightActors));
             }
             // Get's No of Rows Count   
             return full; //return les infos completes d'un film + des infos complementaires
@@ -145,6 +149,8 @@ namespace LibraryBLL
             //return items;
             foreach (var film in query)
             {
+                filmTypes.Clear();
+                comments.Clear();
                 foreach (var typ in film.FilmTypelist)
                 {
                     filmTypes.Add(new FilmTypeDTO(typ.Id, typ.Name));
