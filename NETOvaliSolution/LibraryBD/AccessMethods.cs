@@ -78,9 +78,15 @@ namespace LibraryBD
         }
         public int FindLastId() //Comments
         {
-            int max = CC.Comments.Max(i => i.Id);//AJOUTER SYSTEM.LINQ
-
-            return max + 1;
+            if (CC.Comments.Count() == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                int max = CC.Comments.Max(i => i.Id);//AJOUTER SYSTEM.LINQ
+                return max + 1;
+            }
         }
         public void AddComment(Film film,Comment cmt)
         {
@@ -92,6 +98,14 @@ namespace LibraryBD
         {
             var query = from b in CC.Actors.Include(a => a.Films)//AJOUTER SYSTEM.LINQ
                         where b.ActorId == Id
+                        select b;
+
+            return query;
+        }
+        public IQueryable<Comment> GetComments(int Id)
+        {
+            var query = from b in CC.Comments//AJOUTER SYSTEM.LINQ
+                        where b.IdFilm == Id
                         select b;
 
             return query;

@@ -138,19 +138,11 @@ namespace LibraryBLL
             List<FullFilmDTO> full = new List<FullFilmDTO>();
             FullFilmDTO FILM = new FullFilmDTO();
             List<LightActorDTO> lightActors = new List<LightActorDTO>();
-            List<FilmTypeDTO> filmTypes = new List<FilmTypeDTO>();
-            List<CommentDTO> comments = new List<CommentDTO>();
-            //var query = from b in CC.Films.Include(a => a.Actors).Include(c => c.FilmTypelist).Include(e => e.Comments)//AJOUTER SYSTEM.LINQ
-            //            where b.FilmId == id
-            //            select b;
-            //Methode d'acces au DbContext doit etre dans la DAL
-            //Faire query.SKIP pour la pagination
             var query = access.GetFullFilmByTitle(title);
-            //return items;
             foreach (var film in query)
             {
-                filmTypes.Clear();
-                comments.Clear();
+                List<FilmTypeDTO> filmTypes = new List<FilmTypeDTO>();
+                List<CommentDTO> comments = new List<CommentDTO>();
                 foreach (var typ in film.FilmTypelist)
                 {
                     filmTypes.Add(new FilmTypeDTO(typ.Id, typ.Name));
@@ -162,7 +154,6 @@ namespace LibraryBLL
                 FILM = new FullFilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, comments, filmTypes, lightActors);
             }
 
-            // Get's No of Rows Count   
             return FILM; //return les infos completes d'un film + des infos complementaires
         }
     }

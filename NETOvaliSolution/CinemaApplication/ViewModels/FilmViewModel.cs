@@ -1,11 +1,14 @@
 ﻿using CinemaApplication.Model;
 using CinemaApplication.Services;
+using CinemaApplication.ViewModels;
+using CinemaApplication.Views;
 using LibraryDTO;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
@@ -22,8 +25,11 @@ namespace CinemaApplication.ViewModel
         public ObservableCollection<FilmModel> Films { get; set; }
         public ICommand cmdClick { get; set; }
         public ICommand cmdSearch { get; set; }
+        public ICommand cmdVisu { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public String rech { get; set; }
+        public FilmModel Actuel { get; set; }
         protected void OnPropertyChanged([CallerMemberName] string name=null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -45,7 +51,7 @@ namespace CinemaApplication.ViewModel
                     Films.Clear();
                     foreach (var ff in f)
                     {
-                        Films.Add(new FilmModel(ff.Posterpath,ff.Title,ff.Runtime, GenreImage(ff.FilmTypelist), ff.CommentsD));
+                        Films.Add(new FilmModel(ff.Id,ff.Posterpath,ff.Title,ff.Runtime, GenreImage(ff.FilmTypelist), ff.CommentsD));
                     }
                 }
             }
@@ -64,28 +70,26 @@ namespace CinemaApplication.ViewModel
                      if(ff==null)
                     {
                         Console.WriteLine("Film pas trouve");
-                    }else Films.Add(new FilmModel(ff.Posterpath, ff.Title, ff.Runtime,GenreImage(ff.FilmTypelist),ff.CommentsD));
+                    }else Films.Add(new FilmModel(ff.Id,ff.Posterpath, ff.Title, ff.Runtime,GenreImage(ff.FilmTypelist),ff.CommentsD));
                  }
             }
+        }
+        private async void Visualise()
+        {
+            Films.Count();
+            Actuel.Title.ToString();
+            //CommentViewModel cwm = new CommentViewModel(Actuel);
+            FilmWindow fw = new FilmWindow();
+            fw.DataContext = new CommentViewModel(Actuel);
+            fw.Show();
         }
 
         public FilmViewModel()
         {
             cmdClick = new DelegateCommand((a) => NextPage());
             cmdSearch = new DelegateCommand((a) => Search());
+            cmdVisu = new DelegateCommand((a) => Visualise());
             Films = new ObservableCollection<FilmModel>();
-            
-           /* Films.Add(new FilmModel()
-            {
-                Title = "Film 1",
-                Runtime = "2h30"
-            });
-
-            Films.Add(new FilmModel
-            {
-                Title = "Film 2",
-                Runtime = "1h30"
-            });*/
         }
         public string GenreImage(ICollection<LibraryDTO.FilmTypeDTO> list)
         {

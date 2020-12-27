@@ -16,6 +16,18 @@ namespace LibraryBLL
 
         }
 
+        public List<CommentDTO> GetCommentsOnFilmId(int idfilm)
+        {
+            //var film = CC.Films.Find(id);
+            //int Comid=FindLastId();
+            var query = access.GetComments(idfilm);
+            List<CommentDTO> coms = new List<CommentDTO>();
+            foreach (var c in query)
+            {
+                coms.Add(new CommentDTO(c.Id, c.Content, c.Rate, c.IdFilm, c.Username, c.DateCom));
+            }
+            return coms;
+        }
         public void InsertCommentOnFilmId(int idfilm,string contenu, int note,string user)
         {
             //var film = CC.Films.Find(id);

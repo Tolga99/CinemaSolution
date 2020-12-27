@@ -3,24 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CinemaApplication.ViewModel"
+        xmlns:local="clr-namespace:CinemaApplication.ViewModels"
         mc:Ignorable="d"
         Title="FilmWindow" Height="450" Width="800">
     <Window.DataContext>
-        <local:FilmViewModel/>
+        <local:CommentViewModel/>
     </Window.DataContext>
     <Grid>
-        <Image HorizontalAlignment="Left" Height="100" Margin="32,29,0,0" VerticalAlignment="Top" Width="100"/>
-        <Label Content="Nom du film :" HorizontalAlignment="Left" Margin="32,173,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="0.342,0.66"/>
-        <DataGrid Margin="384,0,0,248" ItemsSource="{Binding }"/>
-        <Label Content="Ajout d'un commentaire :" HorizontalAlignment="Left" Margin="350,217,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="CommentBox" HorizontalAlignment="Left" Margin="670,225,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="NoteBox" HorizontalAlignment="Left" Margin="670,262,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="UsernameBox" HorizontalAlignment="Left" Margin="670,299,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Commentaire :" HorizontalAlignment="Left" Margin="557,221,0,0" VerticalAlignment="Top"/>
-        <Label Content="Note :" HorizontalAlignment="Left" Margin="601,258,0,0" VerticalAlignment="Top"/>
-        <Label Content="Username :" HorizontalAlignment="Left" Margin="575,291,0,0" VerticalAlignment="Top"/>
+        <Image Source="{Binding FilmCom.Pic}" HorizontalAlignment="Left" Height="100" Margin="32,29,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label Content="Titre :" HorizontalAlignment="Left" Margin="32,173,0,0" VerticalAlignment="Top"/>
+        <DataGrid Margin="10,205,262,0" Name="CommentGrid" ItemsSource="{Binding Commentaires}" AutoGenerateColumns="True"/>
+        <Label Content="Ajout d'un commentaire :" HorizontalAlignment="Left" Margin="432,29,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="CommentBox" HorizontalAlignment="Left" Margin="670,68,0,0" Text="{Binding contenu}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="NoteBox" HorizontalAlignment="Left" Margin="670,106,0,0" Text="{Binding rate}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="UsernameBox" HorizontalAlignment="Left" Margin="670,142,0,0" Text="{Binding username}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Commentaire :" HorizontalAlignment="Left" Margin="557,64,0,0" VerticalAlignment="Top"/>
+        <Label Content="Note :" HorizontalAlignment="Left" Margin="601,102,0,0" VerticalAlignment="Top"/>
+        <Label Content="Username :" HorizontalAlignment="Left" Margin="575,134,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding FilmCom.Title}" HorizontalAlignment="Left" Margin="120,173,0,0" VerticalAlignment="Top" Height="35" Width="145"/>
+        <Button Name="AddComment" Content="Ajouter ce commentaire" Command="{Binding cmdComment}" HorizontalAlignment="Left" Margin="670,195,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding rateAv,StringFormat=F2}" HorizontalAlignment="Left" Margin="683,314,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Commentaires.Count}" HorizontalAlignment="Left" Margin="683,345,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding FilmCom.Title}" HorizontalAlignment="Left" Margin="672,288,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

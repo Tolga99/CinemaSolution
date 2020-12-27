@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CinemaApplication.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="525" Width="1083"
+        Title="MainWindow" Height="525" Width="693"
         >
     <Window.DataContext>
         <local:FilmViewModel/>
     </Window.DataContext>
-    <Grid>
-        <DataGrid Grid.Row="0" ItemsSource="{Binding Films}" AutoGenerateColumns="False" Margin="0,82,377,102">
+    <Grid HorizontalAlignment="Left" Width="1073">
+        <DataGrid x:Name="GridFilm" Grid.Row="0" ItemsSource="{Binding Films}" AutoGenerateColumns="False" Margin="10,45,690,139" SelectedItem="{Binding Actuel}">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="80" Header="Image">
                     <DataGridTemplateColumn.CellTemplate>
@@ -31,10 +31,11 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Next Page" Command="{Binding cmdClick}" Margin="168,350,555,53"/>
-        <TextBox Text="{Binding rech}" Name="searchText" HorizontalAlignment="Left" Margin="913,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button Command="{Binding cmdSearch}" CommandParameter="{Binding Text,ElementName=searchText}" Content="Rechercher" Name="Search" HorizontalAlignment="Left" Margin="953,137,0,0" VerticalAlignment="Top"/>
-        <Label Content="Recherche :" HorizontalAlignment="Left" Margin="814,87,0,0" VerticalAlignment="Top" Width="94"/>
+        <Button Content="Next Page" Command="{Binding cmdClick}" Margin="31,412,931,56"/>
+        <TextBox Text="{Binding rech}" Name="searchText" HorizontalAlignment="Left" Margin="542,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Command="{Binding cmdSearch}" CommandParameter="{Binding Text,ElementName=searchText}" Content="Rechercher" Name="Search" HorizontalAlignment="Left" Margin="542,105,0,0" VerticalAlignment="Top"/>
+        <Label Content="Recherche :" HorizontalAlignment="Left" Margin="448,45,0,0" VerticalAlignment="Top" Width="94"/>
+        <Button Name="Visualise" Command="{Binding cmdVisu}" Content="Visualiser" HorizontalAlignment="Left" Margin="271,412,0,0" VerticalAlignment="Top" Height="41" Width="112"/>
 
     </Grid>
 

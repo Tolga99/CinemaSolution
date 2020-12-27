@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CinemaApplication.Model;
+using CinemaApplication.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,9 +19,17 @@ namespace CinemaApplication.Views
     /// </summary>
     public partial class FilmWindow : Window
     {
+        public FilmModel filmAct;
         public FilmWindow()
         {
             InitializeComponent();
+        }
+        public FilmWindow(FilmModel fm)
+        {
+            InitializeComponent();
+           // this.filmAct = fm;
+           // CommentViewModel cvm = new CommentViewModel(filmAct);
+       
         }
     }
 }

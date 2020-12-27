@@ -9,6 +9,7 @@ namespace CinemaApplication.Model
 {
     public class FilmModel
     {
+        private int id;
         private string pic;
         private string title;
         private string runtime;
@@ -22,10 +23,11 @@ namespace CinemaApplication.Model
         public string Pic { get => pic; set => pic = value; }
         public ICollection<CommentDTO> Comments { get => comments; set => comments = value; }
         public string Genres { get => genres; set => genres = value; }
+        public int Id { get => id; set => id = value; }
 
-        public FilmModel(string img, string titre,double temps,string genre, ICollection<CommentDTO>cmt)
+        public FilmModel(int ide,string img, string titre,double temps,string genre, ICollection<CommentDTO>cmt)
         {
-            
+
             //pic.Width = 50;
             //pic.Height = 50;
 
@@ -37,6 +39,7 @@ namespace CinemaApplication.Model
             */
             // Set Image.Source  
             //ImageClub.Source = bitmap;
+            Id = ide;
             Pic = "http://image.tmdb.org/t/p/w185"+img;
             Title = titre;
             Runtime = RuntimeConvert(temps);
