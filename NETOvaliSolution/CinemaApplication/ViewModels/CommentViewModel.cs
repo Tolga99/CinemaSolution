@@ -86,10 +86,6 @@ namespace CinemaApplication.ViewModels
             this.FilmCom = filmModel;
             Commentaires = new ObservableCollection<LibraryDTO.CommentDTO>();
             rateAv=0;
-            //foreach(var com in FilmCom.Comments)
-            //{
-            //    Commentaires.Add(com);
-            //}
             GetComments();
         }
     }

@@ -1,0 +1,37 @@
+﻿@using CinemaWebSite.Models
+@model IEnumerable<CinemaWebSite.Models.HomeFilmModel>
+
+@{
+    Layout = null;
+}
+
+@{ ViewData["message"] = "Bonjour à toi, "; }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <ul class="row">
+        @foreach (HomeFilmModel film in Model)
+        {
+
+        <div class="col -sm -6 col -md -4 col -lg -3">
+            <li class="card">
+                <ul class="list -group  list -group -flush">
+                    <li class="list -group -item">@film.Id</li>
+                    <li class="list -group -item">@film.Title</li>
+                    <li class="list -group -item">@film.Runtime </li>
+                    <li class="list -group -item">@film.Vote_aver</li>
+
+                </ul>
+            </li>
+        </div>
+        }
+</body>
+</html>
+
+
