@@ -2,7 +2,6 @@
 using CinemaApplication.Services;
 using CinemaApplication.ViewModels;
 using CinemaApplication.Views;
-using LibraryDTO;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,11 +9,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 
 namespace CinemaApplication.ViewModel
 {
@@ -94,7 +91,7 @@ namespace CinemaApplication.ViewModel
         public string GenreImage(ICollection<LibraryDTO.FilmTypeDTO> list)
         {
             IEnumerator<LibraryDTO.FilmTypeDTO> enume= list.GetEnumerator();
-            while (enume.MoveNext()!=null)
+            while (enume.MoveNext() != false)
             {
                 if (enume.Current == null)
                 {

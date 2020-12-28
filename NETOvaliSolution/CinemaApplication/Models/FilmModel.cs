@@ -33,7 +33,6 @@ namespace CinemaApplication.Model
         }
         public String RuntimeConvert(double run)
         {
-            String Temps;
             int nbHour = (int)(run / 60);
             int nbMin = (int)(run - (60 * nbHour));
             return nbHour.ToString() + "h" + nbMin.ToString() + "m";

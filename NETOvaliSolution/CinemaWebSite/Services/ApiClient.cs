@@ -15,7 +15,7 @@ using System.Text;
 #pragma warning disable 1591 // Disable "CS1591 Missing XML comment for publicly visible type or member ..."
 #pragma warning disable 8073 // Disable "CS8073 The result of the expression is always 'false' since a value of type 'T' is never equal to 'null' of type 'T?'"
 
-namespace CinemaApplication.Services
+namespace CinemaWebSite.Services
 {
     using System = global::System;
 
