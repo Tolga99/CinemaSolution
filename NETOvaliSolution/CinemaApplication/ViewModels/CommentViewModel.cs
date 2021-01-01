@@ -11,15 +11,16 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CinemaApplication.ViewModels
 {
     public class CommentViewModel : INotifyPropertyChanged
     {
-        int i = 0;
         public string contenu { get; set; }
         public double rate { get; set; }
-        public double rateAv { get; set; }
+        public string rateAv { get; set; }
+        public double moyenne { get; set; }
 
         public string username { get; set; }
         public FilmModel FilmCom { get; set; }
@@ -67,25 +68,26 @@ namespace CinemaApplication.ViewModels
                         foreach (var c in com)
                         {
                             Commentaires.Add(c);
-                            rateAv += c.Rate;
+                            moyenne += c.Rate;
                         }
-                        rateAv /= com.Count();
+                        moyenne /= com.Count();
                     }
                 }
             }
+            rateAv = moyenne.ToString("F2");
+            FilmCom.Average = moyenne;
+           // return moyenne;
         }
         public CommentViewModel()
         {
             cmdComment = new DelegateCommand((a) => AddComment());
             Commentaires = new ObservableCollection<LibraryDTO.CommentDTO>();
-            rateAv = rateAv;
         }
         public CommentViewModel(FilmModel filmModel)
         {
             cmdComment = new DelegateCommand((a) => AddComment());
             this.FilmCom = filmModel;
             Commentaires = new ObservableCollection<LibraryDTO.CommentDTO>();
-            rateAv=0;
             GetComments();
         }
     }

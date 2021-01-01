@@ -71,7 +71,7 @@ namespace CinemaApplication.ViewModel
                  }
             }
         }
-        private async void Visualise()
+        private void Visualise()
         {
             Films.Count();
             Actuel.Title.ToString();

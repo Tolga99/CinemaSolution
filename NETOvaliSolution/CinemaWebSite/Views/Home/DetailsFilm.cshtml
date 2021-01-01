@@ -1,0 +1,103 @@
+﻿@using CinemaWebSite.Models
+@model CinemaWebSite.Models.DetailFilmModel
+
+@{
+    Layout = null;
+}
+
+@{ ViewData["message"] = "Bonjour à toi, "; }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <li><a href="/0">Back to the Home</a></li>
+
+    <div class="col -sm -6 col -md -4 col -lg -3">
+        <li class="card">
+            <ul class="list -group  list -group -flush">
+                <h2> <li class="list -group -item">@Model.Title</li> </h2>
+                <li class="list -group -item">@Model.Id</li>
+                <img src=@Model.Pic />
+                <li class="list -group -item">@Model.Runtime </li>
+                <li class="list -group -item">@Model.Vote_aver</li>
+                @for (int i = 0; i < (int)Model.Vote_aver; i++)
+                {
+                    <img src="https://iconsplace.com/wp-content/uploads/_icons/ffa500/256/png/rating-star-icon-11-256.png" width="10" height="10" />
+                }
+                @for (int i = (int)Model.Vote_aver; i < 10; i++)
+                {
+                    <img src="https://icons-for-free.com/iconfiles/png/512/mark+opinion+rating+star+icon-1320191205647153700.png" width="10" height="10" />
+                }
+            </ul>
+        </li>
+    </div>
+    <h3>Ajouter un commentaire</h3>
+    <form action="/film/@Model.Id/comment">
+
+        <p>Content : <input id="content" name="content" type="text" value="" /> </p>
+        <p>Username : <input id="username" name="username" type="text" value="" /> </p>
+        <p>Rate : <input id="rate" name="rate" type="text" value="" /> </p>
+
+        <input type="submit" />
+    </form>
+    <h3>Genres</h3>
+    @foreach (LibraryDTO.FilmTypeDTO type in Model.FilmTypelist)
+    {
+
+        <div class="col -sm -6 col -md -4 col -lg -3">
+            <li class="card">
+                <ul class="list -group  list -group -flush">
+                    <li class="list -group -item">@type.Name</li>
+                </ul>
+            </li>
+        </div>
+        <br />
+        <br />
+    }
+    <h3>Commentaires</h3>
+    @foreach (LibraryDTO.CommentDTO cmt in Model.Comments)
+    {
+
+        <div class="col -sm -6 col -md -4 col -lg -3">
+            <li class="card">
+                <ul class="list -group  list -group -flush">
+                    <li class="list -group -item">@cmt.Content</li>
+                    <li class="list -group -item">@cmt.Rate</li>
+                    <li class="list -group -item">@cmt.DateCom</li>
+                    <li class="list -group -item">@cmt.Username</li>
+                </ul>
+            </li>
+        </div>
+        <br />
+        <br />
+    }
+    <h3>Actors</h3>
+    @foreach (LibraryDTO.LightActorDTO act in Model.Actors)
+    {
+
+        <div class="col -sm -6 col -md -4 col -lg -3">
+            <li class="card">
+                <ul class="list -group  list -group -flush">
+                    <li class="list -group -item">@act.Name</li>
+                    <li class="list -group -item">@act.Surname</li>
+                    <li class="list -group -item">@act.Id</li>
+                </ul>
+            </li>
+        </div>
+        <br />
+        <br />
+    }
+    <form action="/film/@Model.Id/@(Model.Page-1)">
+        <input type="submit" value="Go back" />
+
+    </form>
+    <form action="/film/@Model.Id/@(Model.Page+1)">
+        <input type="submit" value="Next Page of actors" />
+
+    </form>
+</body>
+</html>

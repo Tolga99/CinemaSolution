@@ -16,17 +16,6 @@ namespace WebServerAPI.Controllers
     [ApiController]
     public class FilmController : ControllerBase
     {
-        // GET: api/<FilmController>
-       /* [HttpGet("name")]
-        public IActionResult FindListFilmByPartialActorName([FromQuery]string name)
-        {
-            FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
-            List<FilmDTO>l= fdm.FindListFilmByPartialActorName(name);
-            if (l.Count == 0)
-                return NotFound(new NotFoundError("Film ou Acteur introuvable"));
-            else return Ok(l); 
-        }
-       */
         [HttpGet("name")]
         public IActionResult FindListFilmByFullActorName([FromQuery]string name, [FromQuery] string surname="") //Ajouter 2 param de Page
         {
@@ -89,13 +78,10 @@ namespace WebServerAPI.Controllers
 
             List<LightActorDTO> items = actors.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
 
-            // if CurrentPage is greater than 1 means it has previousPage  
             var previousPage = CurrentPage > 1 ? "Yes" : "No";
 
-            // if TotalPages is greater than CurrentPage means it has nextPage  
             var nextPage = CurrentPage < TotalPages ? "Yes" : "No";
 
-            // Object which we are going to send in header   
             var paginationMetadata = new
             {
                 totalCount = TotalCount,
@@ -109,15 +95,9 @@ namespace WebServerAPI.Controllers
             {
                 l.FirstOrDefault().Actors.Add(actor);
             }
-            //if (l.Title == null && l.Actors.Count == 0)
-            //    return NotFound(new NotFoundError("Film introuvable"));
             if (id<0) return (IEnumerable<FullFilmDTO>)NotFound(new NotFoundError("Film introuvable"));
             else
             {
-                //return Ok(l);
-                // Setting Header  
-               // HttpContext.Current.Response.Headers.Add("Paging-Headers", JsonConvert.SerializeObject(paginationMetadata));
-                // Returing List of Customers Collections  
                 return l;
             }
 
@@ -166,18 +146,12 @@ namespace WebServerAPI.Controllers
                 previousPage,
                 nextPage
             };
-            /*foreach (LightActorDTO actor in items)
-            {
-                l.FirstOrDefault().Actors.Add(actor);
-            }*/
-            //if (l.Title == null && l.Actors.Count == 0)
-            //    return NotFound(new NotFoundError("Film introuvable"));
             return items;
 
         }
 
         [HttpPost("name")]
-        public FullFilmDTO GetFilmByIdFilm([FromBody] string title)
+        public FullFilmDTO GetFilmByTitle([FromBody] string title)
         {
             FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
             FullFilmDTO l = fdm.GetFilmByTitle(title);
@@ -185,26 +159,5 @@ namespace WebServerAPI.Controllers
                 return null;
             else return l;
         }
-        //List<FilmDTO> FindListFilmByPartialActorName(string name)
-        //// GET api/<FilmController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        // POST api/<FilmController>/{id_film}/{comment}/{note}
-
-        //// PUT api/<FilmController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        //// DELETE api/<FilmController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }

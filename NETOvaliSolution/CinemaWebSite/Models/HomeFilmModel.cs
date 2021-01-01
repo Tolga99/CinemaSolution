@@ -21,7 +21,10 @@ namespace CinemaWebSite.Models
         public int Id { get => id; set => id = value; }
         public double Vote_aver { get => vote_aver; set => vote_aver = value; }
         public int Page { get => page; set => page = value; }
+        public HomeFilmModel()
+        {
 
+        }
         public HomeFilmModel(int ide, string img, string titre, double temps, double votea,int pg)
         {
             Id = ide;

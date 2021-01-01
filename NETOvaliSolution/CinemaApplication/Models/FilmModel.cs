@@ -14,6 +14,7 @@ namespace CinemaApplication.Model
         private string title;
         private string runtime;
         private string genres;
+        private double average;
         private ICollection<CommentDTO> comments;
         public string Title { get => title; set => title = value; }
         public string Runtime { get => runtime; set => runtime = value; }
@@ -21,6 +22,7 @@ namespace CinemaApplication.Model
         public ICollection<CommentDTO> Comments { get => comments; set => comments = value; }
         public string Genres { get => genres; set => genres = value; }
         public int Id { get => id; set => id = value; }
+        public double Average { get => average; set => average = value; }
 
         public FilmModel(int ide,string img, string titre,double temps,string genre, ICollection<CommentDTO>cmt)
         {
