@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CinemaWebSite.Models
 {
@@ -25,7 +22,7 @@ namespace CinemaWebSite.Models
         {
 
         }
-        public HomeFilmModel(int ide, string img, string titre, double temps, double votea,int pg)
+        public HomeFilmModel(int ide, string img, string titre, double temps, double votea, int pg)
         {
             Id = ide;
             Pic = "http://image.tmdb.org/t/p/w185" + img;

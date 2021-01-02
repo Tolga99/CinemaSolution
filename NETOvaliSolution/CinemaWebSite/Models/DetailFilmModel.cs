@@ -1,9 +1,6 @@
 ﻿using LibraryDTO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CinemaWebSite.Models
 {
@@ -31,7 +28,7 @@ namespace CinemaWebSite.Models
             FilmTypelist = type;
             Comments = cmt;
         }
-        public DetailFilmModel(int ID, string title, double VoteA, double run, string path,int page) : base(ID,path, title, run,VoteA,page)
+        public DetailFilmModel(int ID, string title, double VoteA, double run, string path, int page) : base(ID, path, title, run, VoteA, page)
         {
 
         }
@@ -41,7 +38,7 @@ namespace CinemaWebSite.Models
         //    Actors = act;
         //    FilmTypelist = type;
         //}
-        public DetailFilmModel(int ID, string title, double VoteA, double run, string path,int page, ICollection<CommentDTO> cmt, ICollection<FilmTypeDTO> type, ICollection<LightActorDTO> act)
+        public DetailFilmModel(int ID, string title, double VoteA, double run, string path, int page, ICollection<CommentDTO> cmt, ICollection<FilmTypeDTO> type, ICollection<LightActorDTO> act)
         : base(ID, path, title, run, VoteA, page)
         {
             Actors = act;
