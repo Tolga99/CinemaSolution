@@ -22,7 +22,7 @@ namespace LibraryBLL
             var query = access.GetAllActors();
             foreach (var actor in query)
             {
-                if (actor.Name == name)
+                if (actor.Name.ToLower() == name.ToLower())
                 {
                     foreach (var film in actor.Films)
                         list.Add(new FilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, film.Comments));
@@ -37,7 +37,7 @@ namespace LibraryBLL
             foreach (var actor in query)
             {
 
-                if (actor.Name == name && actor.Surname == surname)
+                if (actor.Name.ToLower() == name.ToLower() && actor.Surname.ToLower() == surname.ToLower())
                 {
                     foreach (var film in actor.Films)
                         list.Add(new FilmDTO(film.FilmId, film.Title, film.Release_Date, film.Vote_Average, film.Runtime, film.Posterpath, film.Comments));

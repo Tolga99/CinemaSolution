@@ -22,7 +22,6 @@
         <Label Content="Username :" HorizontalAlignment="Left" Margin="575,134,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding FilmCom.Title}" HorizontalAlignment="Left" Margin="120,173,0,0" VerticalAlignment="Top" Height="35" Width="145"/>
         <Button Name="AddComment" Content="Ajouter ce commentaire" Command="{Binding cmdComment}" HorizontalAlignment="Left" Margin="670,195,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding rateAv}" HorizontalAlignment="Left" Margin="683,314,0,0" VerticalAlignment="Top" Height="26" Width="48" RenderTransformOrigin="1.139,0.609"/>
         <Label Content="{Binding FilmCom.Average}" HorizontalAlignment="Left" Margin="601,314,0,0" VerticalAlignment="Top" Height="26" Width="48" RenderTransformOrigin="1.139,0.609"/>
         <Label Content="{Binding Commentaires.Count}" HorizontalAlignment="Left" Margin="683,345,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding FilmCom.Title}" HorizontalAlignment="Left" Margin="672,288,0,0" VerticalAlignment="Top"/>

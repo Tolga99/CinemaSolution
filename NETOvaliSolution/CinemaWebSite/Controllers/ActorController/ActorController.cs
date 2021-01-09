@@ -12,8 +12,7 @@ namespace CinemaWebSite.HomeController
 {
     public class ActorController : Controller
     {
-        [Route("[Controller]")]
-        [Route("/{id}")]
+        [Route("[Controller]/{id}")]
         public async Task<IActionResult> ActorPage(int id)
         {
             ActorModel actor = new ActorModel();

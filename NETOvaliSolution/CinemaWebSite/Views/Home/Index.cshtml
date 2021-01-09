@@ -6,61 +6,73 @@
 }
 
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </head>
-<body>
-    <ul class="row" />
-    <div align="center">
-        <h3>Recherche d'un film</h3>
-        <form action="/film/search">
-            <p>Titre du film : <input id="film" name="title" type="text" value="" /> </p>
-            <p>Nom de l'acteur : <input id="name" name="name" type="text" value="" /> </p>
-            <p>Prenom de l'acteur : <input id="surname" name="surname" type="text" value="" /> </p>
-
-            <p>Film : <input id="check1" name="check" type="checkbox" value="1" /> </p>
-            <p>Acteur : <input id="check2" name="check" type="checkbox" value="2"/> </p>
-            <input type="submit" />
-        </form>
-    </div>
-    @foreach (HomeFilmModel film in Model)
-    {
-
-        <div class="col -sm -6 col -md -4 col -lg -3">
-            <li class="card">
-                <ul class="list -group  list -group -flush">
-                    <li class="list -group -item">@film.Title</li>
-                    <li class="list -group -item">@film.Id</li>
-                    <img src=@film.Pic />
-                    <li class="list -group -item">@film.Runtime </li>
-                    <li class="list -group -item">@film.Vote_aver</li>
-                    @for (int i = 0; i < (int)film.Vote_aver; i++)
+<body class="h-100">
+    <div class="container h-100">
+        <div class="row h-100">
+            <div class="col-8 h-100">
+                <div class="row" style="height:90%;overflow-y:auto">
+                    @foreach (HomeFilmModel film in Model)
                     {
-                        <img src="https://iconsplace.com/wp-content/uploads/_icons/ffa500/256/png/rating-star-icon-11-256.png" width="10" height="10" />
+                        <div class="row">
+                            <div class="col -sm -6 col -md -4 col -lg -3">
+                                <li class="card">
+                                    <ul class="list -group  list -group -flush">
+                                        <li class="list -group -item">@film.Title</li>
+                                        <li class="list -group -item">@film.Id</li>
+                                        <img src=@film.Pic />
+                                        <li class="list -group -item">@film.Runtime </li>
+                                        <li class="list -group -item">@film.Vote_aver</li>
+                                        @for (int i = 0; i < (int)film.Vote_aver; i++)
+                                        {
+                                            <img src="https://iconsplace.com/wp-content/uploads/_icons/ffa500/256/png/rating-star-icon-11-256.png" width="10" height="10" />
+                                        }
+                                        @for (int i = (int)film.Vote_aver; i < 10; i++)
+                                        {
+                                            <img src="https://icons-for-free.com/iconfiles/png/512/mark+opinion+rating+star+icon-1320191205647153700.png" width="10" height="10" />
+                                        }
+                                        <li><a href="/film/@film.Id/0">Details</a></li>
+                                    </ul>
+                                </li>
+                            </div>
+                        </div>
                     }
-                    @for (int i = (int)film.Vote_aver; i < 10; i++)
-                    {
-                        <img src="https://icons-for-free.com/iconfiles/png/512/mark+opinion+rating+star+icon-1320191205647153700.png" width="10" height="10" />
-                    }
-                    <li><a href="/film/@film.Id/0">Details</a></li>
-                </ul>
-            </li>
+                </div>
+                <div class="row" style="height:10%">
+                    <form action="/@(Model.Last().Page-1)">
+                        <input type="submit" value="Go back" />
+
+                    </form>
+                    <form action="/@(Model.Last().Page+1)">
+                        <input type="submit" value="Next Page" />
+                    </form>
+                </div>
+            </div>
+            <div class="col-4 h-100">
+                <div align="center">
+                    <h3>Recherche d'un film</h3>
+                    <form action="/film/search">
+                        <p>Titre du film : <input id="film" name="title" type="text" value="" /> </p>
+                        <p>Nom de l'acteur : <input id="name" name="name" type="text" value="" /> </p>
+                        <p>Prenom de l'acteur : <input id="surname" name="surname" type="text" value="" /> </p>
+
+                        <p>Film : <input id="check1" name="check" type="checkbox" value="1" /> </p>
+                        <p>Acteur : <input id="check2" name="check" type="checkbox" value="2" /> </p>
+                        <input type="submit" class="btn btn-lg btn-primary" value="Recherche" />
+                    </form>
+                </div>
+            </div>
         </div>
-        <br />
-        <br />
-    }
-    @{ int page = 0;}
+    </div>
 
-    <form action="/@(Model.Last().Page-1)">
-        <input type="submit" value="Go back" />
 
-    </form>
-    <form action="/@(Model.Last().Page+1)">
-        <input type="submit" value="Next Page" />
 
-    </form>
 </body>
 </html>
 

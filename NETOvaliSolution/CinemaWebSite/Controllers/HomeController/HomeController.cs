@@ -86,7 +86,7 @@ namespace CinemaWebSite.HomeController
             int id = 0;
             if (surname == null)
                 surname = "";
-            if (check.Length > 1 || check.Length < 0)
+            if (check.Length == 0)
             {
                 return Redirect("/");
             }

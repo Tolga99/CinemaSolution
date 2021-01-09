@@ -31,7 +31,7 @@ namespace CinemaApplication.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
         //public String rech { get; set; }
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        protected void OnPropertyChanged(string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
