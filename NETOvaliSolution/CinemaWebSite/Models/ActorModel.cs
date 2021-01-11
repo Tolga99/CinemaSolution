@@ -39,7 +39,6 @@ namespace CinemaWebSite.Models
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Actor :");
-            // sb.AppendLine("ID :" + " " + this.Id + " " + "Name :" + " " + this.Name + " " + "Surname :" + " " + this.Surname);
             return sb.ToString();
         }
     }

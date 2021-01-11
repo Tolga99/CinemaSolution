@@ -78,11 +78,11 @@ namespace LibraryBD
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Film :");
             sb.AppendLine("Title :" + Title + " " + "Date :" + " " + Release_Date + " " + "Vote Average :" + " " + vote_Average + " " + "Runtime :" + " " + Runtime + " " + "Posterpath :" + " " + Posterpath + " ");
-            foreach (FilmType data in filmTypelist)
+            foreach (FilmType data in FilmTypelist)
             {
                 sb.AppendLine("Genres :" + data.ToString());
             }
-            foreach (Actor data in actors)
+            foreach (Actor data in Actors)
             {
                 sb.AppendLine("Actors :" + data.ToString());
             }

@@ -23,6 +23,8 @@ namespace CinemaApplication.ViewModel
         public ICommand cmdClick { get; set; }
         public ICommand cmdSearch { get; set; }
         public ICommand cmdVisu { get; set; }
+        public ICommand cmdBack { get; set; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public String rech { get; set; }
@@ -31,7 +33,27 @@ namespace CinemaApplication.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+        private async void BackPage()
+        {
+            Client ac = new Client("http://localhost:53454/swagger/v1/swagger.json", new System.Net.Http.HttpClient());
 
+
+            using (var httpClient = new HttpClient())
+            {
+                i--;
+                using (var response = await httpClient.GetAsync("http://localhost:53454/api/film/all?page=" + i + "&pagesize=" + 5))
+                {
+
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    var f = JsonConvert.DeserializeObject<List<LibraryDTO.FullFilmDTO>>(apiResponse);
+                    Films.Clear();
+                    foreach (var ff in f)
+                    {
+                        Films.Add(new FilmModel(ff.Id, ff.Posterpath, ff.Title, ff.Runtime, GenreImage(ff.FilmTypelist), ff.CommentsD));
+                    }
+                }
+            }
+        }
         private async void NextPage()
         {
             Client ac = new Client("http://localhost:53454/swagger/v1/swagger.json", new System.Net.Http.HttpClient());
@@ -74,16 +96,19 @@ namespace CinemaApplication.ViewModel
         private void Visualise()
         {
             Films.Count();
-            Actuel.Title.ToString();
-            //CommentViewModel cwm = new CommentViewModel(Actuel);
-            FilmWindow fw = new FilmWindow();
-            fw.DataContext = new CommentViewModel(Actuel);
-            fw.Show();
+            if(Actuel!=null)
+            {
+                Actuel.Title.ToString();
+                FilmWindow fw = new FilmWindow();
+                fw.DataContext = new CommentViewModel(Actuel);
+                fw.Show();
+            }
         }
 
         public FilmViewModel()
         {
             cmdClick = new DelegateCommand((a) => NextPage());
+            cmdBack = new DelegateCommand((a) => BackPage());
             cmdSearch = new DelegateCommand((a) => Search());
             cmdVisu = new DelegateCommand((a) => Visualise());
             Films = new ObservableCollection<FilmModel>();

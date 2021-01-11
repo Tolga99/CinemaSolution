@@ -92,10 +92,10 @@
         <br />
         <br />
     }
-    <form action="/film/@Model.Id/@(Model.Page-1)">
-        <input type="submit" value="Go back" />
-
-    </form>
+<form action="/film/@Model.Id/@(Model.Page-1)">
+    <input type="submit" value="Go back" />
+    <h5>Page @Model.Page</h5>
+</form>
     <form action="/film/@Model.Id/@(Model.Page+1)">
         <input type="submit" value="Next Page of actors" />
 

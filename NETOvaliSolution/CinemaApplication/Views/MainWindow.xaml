@@ -11,7 +11,7 @@
         <local:FilmViewModel/>
     </Window.DataContext>
     <Grid HorizontalAlignment="Left" Width="1073">
-        <DataGrid x:Name="GridFilm" Grid.Row="0" ItemsSource="{Binding Films}" AutoGenerateColumns="False" Margin="10,45,690,139" SelectedItem="{Binding Actuel}">
+        <DataGrid x:Name="GridFilm" Grid.Row="0" ItemsSource="{Binding Films}" AutoGenerateColumns="False" Margin="10,45,630,131" SelectedItem="{Binding Actuel}" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Width="80" Header="Image">
                     <DataGridTemplateColumn.CellTemplate>
@@ -31,11 +31,12 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Next Page" Command="{Binding cmdClick}" Margin="31,412,931,56"/>
         <TextBox Text="{Binding rech}" Name="searchText" HorizontalAlignment="Left" Margin="542,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button Command="{Binding cmdSearch}" CommandParameter="{Binding Text,ElementName=searchText}" Content="Rechercher" Name="Search" HorizontalAlignment="Left" Margin="542,105,0,0" VerticalAlignment="Top"/>
         <Label Content="Recherche :" HorizontalAlignment="Left" Margin="448,45,0,0" VerticalAlignment="Top" Width="94"/>
-        <Button Name="Visualise" Command="{Binding cmdVisu}" Content="Visualiser" HorizontalAlignment="Left" Margin="271,412,0,0" VerticalAlignment="Top" Height="41" Width="112"/>
+        <Button Name="Visualise" Command="{Binding cmdVisu}" Content="Visualiser" HorizontalAlignment="Left" Margin="170,420,0,0" VerticalAlignment="Top" Height="41" Width="112"/>
+        <Button Content="Go Back" Command="{Binding cmdBack}" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Height="21" Width="112"/>
+        <Button Content="Next Page" Command="{Binding cmdClick}" HorizontalAlignment="Left" Margin="331,383,0,0" VerticalAlignment="Top" Height="21" Width="112"/>
 
     </Grid>
 

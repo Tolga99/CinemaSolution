@@ -28,23 +28,5 @@ namespace WebServerAPI.Controllers
                 return NotFound(new NotFoundError("Film introuvable ou Type du film manquant"));
             else return Ok(l);
         }
-
-        // POST api/<FilmTypeController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<FilmTypeController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<FilmTypeController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

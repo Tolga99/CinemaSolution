@@ -32,12 +32,6 @@ namespace CinemaWebSite.Models
         {
 
         }
-        //public FullFilmDTO(int ID, string title, DateTime dates, double VoteA, double run, string path, ICollection<Comment> cmt,ICollection<FilmType> type, ICollection<Actor> act)
-        //        : base(ID, title, dates, VoteA, run, path,cmt)
-        //{
-        //    Actors = act;
-        //    FilmTypelist = type;
-        //}
         public DetailFilmModel(int ID, string title, double VoteA, double run, string path, int page, ICollection<CommentDTO> cmt, ICollection<FilmTypeDTO> type, ICollection<LightActorDTO> act)
         : base(ID, path, title, run, VoteA, page)
         {

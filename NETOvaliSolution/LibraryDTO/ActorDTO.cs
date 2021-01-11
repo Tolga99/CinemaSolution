@@ -13,8 +13,7 @@ namespace LibraryDTO
 
         public int NbFilms { get => nbFilms; set => nbFilms = value; }
 
-        //public virtual ICollection<Film> Films get => films; set => films = value; }
-        public ActorDTO()
+        public ActorDTO() : base()
         {
         }
         public ActorDTO(int ID, string nom, string surnom,int nb) : base(ID,nom,surnom)
@@ -26,7 +25,7 @@ namespace LibraryDTO
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Nombre de films : "+this.nbFilms);
-            return sb.ToString();
+            return base.ToString()+sb.ToString();
         }
     }
 }

@@ -76,7 +76,6 @@ namespace CinemaApplication.ViewModels
             }
             rateAv = moyenne.ToString("F2");
             FilmCom.Average = moyenne;
-           // return moyenne;
         }
         public CommentViewModel()
         {

@@ -21,10 +21,11 @@ namespace ConsoleFilm
             optionsBuilder.UseSqlite("Data Source = C:\\Users\\t_olg\\Desktop\\Ecole\\Bloc 2-3 (2020-2021)\\Q1\\DotNet\\NETOvali\\Cinema.db ;Cache=Shared");
 
             cinemaContext = new CinemaContext(optionsBuilder.Options);
+
             cinemaContext.Database.EnsureDeleted();
             cinemaContext.Database.EnsureCreated();
-
             CreationDBMovie(optionsBuilder);
+
             #region TEST ACTORS
             ActorsDatabaseMethods act = new ActorsDatabaseMethods();
             List<LightActorDTO>l= act.GetListActorsByIdFilm(13); //OK 
@@ -48,21 +49,6 @@ namespace ConsoleFilm
             CommentsDatabaseMethods cmt = new CommentsDatabaseMethods();
             cmt.InsertCommentOnFilmId(13,"Tres bon film",5,"Tolga");
             #endregion
-        }
-        private void update(CinemaContext cinemaContext)
-        {
-            var film = cinemaContext.Films.Find(4);
-            film.Title = "Title EOV";
-
-            cinemaContext.SaveChanges();
-        }
-
-        private void insert(CinemaContext cinemaContext)
-        {
-            var film = cinemaContext.Films;
-            //film.Title = "Title EOV";
-
-            cinemaContext.SaveChanges();
         }
         public static void CreationDBMovie(DbContextOptionsBuilder options)
         {

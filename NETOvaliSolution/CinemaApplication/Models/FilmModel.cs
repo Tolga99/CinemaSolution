@@ -19,7 +19,7 @@ namespace CinemaApplication.Model
         private ICollection<CommentDTO> comments;
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name = null)
+        public void OnPropertyChanged(string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
@@ -34,9 +34,12 @@ namespace CinemaApplication.Model
             get => average;
             set
             {
-                average = value;
+                
                 if (average != value)
+                {
+                    average = value;
                     OnPropertyChanged(nameof(Average));
+                }
             }
         }
 

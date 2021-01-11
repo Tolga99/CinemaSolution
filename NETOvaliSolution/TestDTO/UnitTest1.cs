@@ -15,21 +15,52 @@ namespace TestDTO
 {
     public class Tests
     {
-        private CinemaContext cinemaContext;
+        private ActorsDatabaseMethods act;
         [SetUp]
         public void Setup()
         {
-            DbContextOptionsBuilder<CinemaContext> optionsBuilder = new DbContextOptionsBuilder<CinemaContext>();
-            optionsBuilder.UseSqlite("Data Source = C:\\Users\\t_olg\\Desktop\\Ecole\\Bloc 2-3 (2020-2021)\\Q1\\DotNet\\NETOvali\\Cinema.db ;Cache=Shared");
-
-            cinemaContext = new CinemaContext(optionsBuilder.Options);
+            act = new ActorsDatabaseMethods();
         }
 
         [Test]
-        public void Test1()
+        public void TestActorsbyIdFilm()
         {
-            ActorsDatabaseMethods act = new ActorsDatabaseMethods();
-            act.GetListActorsByIdFilm(1);
+            List<LightActorDTO> l = act.GetListActorsByIdFilm(13); //OK 
+            foreach(var a in l)
+                Console.WriteLine(a);
+
+        }
+        [Test]
+        public void TestActorsFavorite()
+        {
+            List<ActorDTO> ac = act.GetFavoriteActors(); // PAS OK ret=0
+            foreach(var a in ac)
+                Console.WriteLine(a.ToString());
+
+        }
+        [Test]
+        public void TestFilmsbyName()
+        {
+            FilmsDatabaseMethods flm = new FilmsDatabaseMethods();
+            List<FilmDTO> list = flm.FindListFilmByPartialActorName("Hanks"); //OK
+            foreach (var a in list)
+                Console.WriteLine(a);
+        }
+
+        [Test]
+        public void TestListFilmTypesByIdFilm()
+        {
+            FilmTypesDatabaseMethods fty = new FilmTypesDatabaseMethods();
+            List<FilmTypeDTO> lll = fty.GetListFilmTypesByIdFilm(6); //OK
+            foreach (var a in lll)
+                Console.WriteLine(a);
+        }
+        [Test]
+        public void TestInsertCom()
+        {
+            CommentsDatabaseMethods cmt = new CommentsDatabaseMethods();
+            cmt.InsertCommentOnFilmId(13, "Tres bon film", 5, "Tolga");
+
         }
     }
 }

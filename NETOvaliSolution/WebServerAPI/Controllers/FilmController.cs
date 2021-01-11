@@ -17,7 +17,7 @@ namespace WebServerAPI.Controllers
     public class FilmController : ControllerBase
     {
         [HttpGet("name")]
-        public IActionResult FindListFilmByFullActorName([FromQuery]string name, [FromQuery] string surname="") //Ajouter 2 param de Page
+        public IActionResult FindListFilmByFullActorName([FromQuery]string name="", [FromQuery] string surname="") //Ajouter 2 param de Page
         {
             FilmsDatabaseMethods fdm = new FilmsDatabaseMethods();
             List<FilmDTO> l;

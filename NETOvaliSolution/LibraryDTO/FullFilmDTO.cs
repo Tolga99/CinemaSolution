@@ -53,7 +53,7 @@ namespace LibraryDTO
             {
                 sb.AppendLine("Actors :" + data.ToString());
             }
-            return sb.ToString();
+            return base.ToString()+sb.ToString();
         }
     }
 }
