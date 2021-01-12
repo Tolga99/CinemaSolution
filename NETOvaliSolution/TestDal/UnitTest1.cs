@@ -18,7 +18,7 @@ namespace TestDal
         }
 
         [Test]
-        public void Test1()
+        public void GetFilmbyId()
         {
             int i = 1;
             int j = 0;
@@ -38,9 +38,9 @@ namespace TestDal
         }
 
         [Test]
-        public void Test2()
+        public void GetFullFilmByTitle()
         {
-            var ff = am.GetFullFilmByTitle("Star Wars");
+            var ff = am.GetFullFilmByTitle("Back To the Future");
             foreach (Film f in ff)
             {
                 if (f != null)
@@ -50,7 +50,7 @@ namespace TestDal
             }
         }
         [Test]
-        public void Test3()
+        public void GetFilmByActorName()
         {
             var query = am.GetAllActors();
             foreach (var actor in query)
@@ -64,7 +64,7 @@ namespace TestDal
         }
 
         [Test]
-        public void Test4()
+        public void GetFullFilmByTitle2()
         {
             int i = 1;
             int j = 0;
