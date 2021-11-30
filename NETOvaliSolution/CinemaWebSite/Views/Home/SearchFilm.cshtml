@@ -1,0 +1,36 @@
+﻿@using CinemaWebSite.Models
+@model IEnumerable<CinemaWebSite.Models.HomeFilmModel>
+
+@{
+    Layout = null;
+}
+
+<li><a href="/0">Back to the Home</a></li>
+
+@foreach (HomeFilmModel film in Model)
+{
+
+    <div class="col -sm -6 col -md -4 col -lg -3">
+        <li class="card">
+            <ul class="list -group  list -group -flush">
+                <li class="list -group -item">@film.Title</li>
+                <li class="list -group -item">@film.Id</li>
+                <img src=@film.Pic />
+                <li class="list -group -item">@film.Runtime </li>
+                <li class="list -group -item">@film.Vote_aver</li>
+                @for (int i = 0; i < (int)film.Vote_aver; i++)
+                {
+                    <img src="https://iconsplace.com/wp-content/uploads/_icons/ffa500/256/png/rating-star-icon-11-256.png" width="10" height="10" />
+                }
+                @for (int i = (int)film.Vote_aver; i < 10; i++)
+                {
+                    <img src="https://icons-for-free.com/iconfiles/png/512/mark+opinion+rating+star+icon-1320191205647153700.png" width="10" height="10" />
+                }
+                <li><a href="/film/@film.Id/0">Details</a></li>
+            </ul>
+        </li>
+    </div>
+    <br />
+    <br />
+}
+@{ int page = 0;}

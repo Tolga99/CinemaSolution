@@ -1,0 +1,43 @@
+﻿<Window x:Class="CinemaApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CinemaApplication.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="525" Width="693"
+        >
+    <Window.DataContext>
+        <local:FilmViewModel/>
+    </Window.DataContext>
+    <Grid HorizontalAlignment="Left" Width="1073">
+        <DataGrid x:Name="GridFilm" Grid.Row="0" ItemsSource="{Binding Films}" AutoGenerateColumns="False" Margin="10,45,630,131" SelectedItem="{Binding Actuel}" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="80" Header="Image">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Pic}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Titre" Binding="{Binding Title}" />
+                <DataGridTextColumn Header="Runtime" Binding="{Binding Runtime}" />
+                <DataGridTemplateColumn Width="80" Header="Genre">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Genres}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <TextBox Text="{Binding rech}" Name="searchText" HorizontalAlignment="Left" Margin="542,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Command="{Binding cmdSearch}" CommandParameter="{Binding Text,ElementName=searchText}" Content="Rechercher" Name="Search" HorizontalAlignment="Left" Margin="542,105,0,0" VerticalAlignment="Top"/>
+        <Label Content="Recherche :" HorizontalAlignment="Left" Margin="448,45,0,0" VerticalAlignment="Top" Width="94"/>
+        <Button Name="Visualise" Command="{Binding cmdVisu}" Content="Visualiser" HorizontalAlignment="Left" Margin="170,420,0,0" VerticalAlignment="Top" Height="41" Width="112"/>
+        <Button Content="Go Back" Command="{Binding cmdBack}" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Height="21" Width="112"/>
+        <Button Content="Next Page" Command="{Binding cmdClick}" HorizontalAlignment="Left" Margin="331,383,0,0" VerticalAlignment="Top" Height="21" Width="112"/>
+
+    </Grid>
+
+</Window>
